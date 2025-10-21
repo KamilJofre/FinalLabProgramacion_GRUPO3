@@ -14,9 +14,10 @@ import java.util.Date;
 public class Pelicula {
     private String titulo;
     private String director;
-    private ArrayList actores;
+    private ArrayList<String> actores;
     private String origen;
     private String genero;
     private Date estreno;
     private boolean enCartelera;
+    private ArrayList<Funcion> funcion;
 }

@@ -1,0 +1,51 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package finallabprogramacion_grupo3;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author kamil
+ */
+public class Conexion {
+    private static final String URL = "jdbc:mariadb://localhost:3306/gp3_nombre_base?useSSL=false&serverTimezone=UTC";
+    private static final String USER = "root";
+    private static final String PASS = ""; // cambiar si corresponde
+
+    private static Connection conexion = null;
+
+    public static Connection getConexion() {
+        if (conexion == null) {
+            try {
+                Class.forName("com.mariadb.cj.jdbc.Driver");
+                conexion = DriverManager.getConnection(URL, USER, PASS);
+                JOptionPane.showMessageDialog(null, "Se conecto a la base de datos");
+            } catch (ClassNotFoundException e) {
+                System.err.println("Driver JDBC no encontrado: " + e.getMessage());
+            } catch (SQLException e) {
+                System.err.println("Error conectando a la DB: " + e.getMessage());
+            }
+        }
+        return conexion;
+    }
+
+    public static void cerrarConexion() {
+        if (conexion != null) {
+            try {
+                if (!conexion.isClosed()) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Error cerrando la conexión: " + e.getMessage());
+            } finally {
+                conexion = null;
+            }
+        }
+    }
+}

@@ -4,9 +4,6 @@
  */
 package finallabprogramacion_grupo3;
 
-
-import finallabprogramacion_grupo3.Pelicula;
-import finallabprogramacion_grupo3.Sala;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -21,7 +18,7 @@ public class Funcion {
     private boolean subtitulada;
     private Date horaInicio;
     private Date horaFin;
-    private ArrayList listaDeLugares;
+    private ArrayList<Asiento> listaDeLugaresDisponibles;
     private Sala sala;
     private double precio;
 }

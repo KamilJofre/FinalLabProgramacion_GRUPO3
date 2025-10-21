@@ -4,8 +4,6 @@
  */
 package finallabprogramacion_grupo3;
 
-import finallabprogramacion_grupo3.Comprador;
-import finallabprogramacion_grupo3.Asiento;
 import java.util.Date;
 
 /**
