@@ -9,6 +9,7 @@ package finallabprogramacion_grupo3;
  * @author kamil
  */
 public class Sala {
+    private int idSala;
     private int NroSala;
     private boolean apta3D;
     private int capacidad;

@@ -12,13 +12,14 @@ import java.util.Date;
  * @author kamil
  */
 public class Funcion {
-    private Pelicula pelicula;
+    private int idFuncion;
+    private Pelicula idPelicula;
+    private Sala idSala;
     private String idioma;
     private boolean es3D; 
     private boolean subtitulada;
     private Date horaInicio;
     private Date horaFin;
     private ArrayList<Asiento> listaDeLugaresDisponibles;
-    private Sala sala;
     private double precio;
 }

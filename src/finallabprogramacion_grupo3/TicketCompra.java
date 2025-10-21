@@ -11,9 +11,10 @@ import java.util.Date;
  * @author kamil
  */
 public class TicketCompra {
+    private int idTicketCompra;
+    private Comprador idComprador;
+    private Asiento idAsiento;
     private Date fechaCompra;
     private Date fechaFuncion;
     private double monto;
-    private Comprador comprador;
-    private Asiento asiento;
 }

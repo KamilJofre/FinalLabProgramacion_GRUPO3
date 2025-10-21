@@ -12,6 +12,7 @@ import java.util.Date;
  * @author kamil
  */
 public class Pelicula {
+    private int idPelicula;
     private String titulo;
     private String director;
     private ArrayList<String> actores;

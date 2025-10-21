@@ -11,6 +11,7 @@ import java.util.Date;
  * @author kamil
  */
 public class Comprador {
+    private int idComprador;
     private int dni;
     private String nombre;
     private Date fechaNac;

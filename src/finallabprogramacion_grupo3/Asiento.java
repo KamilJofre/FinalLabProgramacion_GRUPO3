@@ -9,9 +9,10 @@ package finallabprogramacion_grupo3;
  * @author kamil
  */
 public class Asiento {
+    private int idAsiento;
+    private Funcion idFuncion;
     private String codLugar;
     private char fila;
     private int numero;
     private boolean estado;
-    private Funcion funcion;
 }
