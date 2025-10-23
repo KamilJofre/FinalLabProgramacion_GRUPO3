@@ -27,9 +27,9 @@ public class Conexion {
                 conexion = DriverManager.getConnection(URL, USER, PASS);
                 JOptionPane.showMessageDialog(null, "Se conecto a la base de datos");
             } catch (ClassNotFoundException e) {
-                System.err.println("Driver JDBC no encontrado: " + e.getMessage());
+                JOptionPane.showMessageDialog(null,"Driver JDBC no encontrado: " + e.getMessage());
             } catch (SQLException e) {
-                System.err.println("Error conectando a la DB: " + e.getMessage());
+                JOptionPane.showMessageDialog(null,"Error conectando a la DB: " + e.getMessage());
             }
         }
         return conexion;
