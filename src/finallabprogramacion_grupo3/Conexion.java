@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author kamil
  */
 public class Conexion {
-    private static final String URL = "jdbc:mariadb://localhost:3306/gp3_nombre_base?useSSL=false&serverTimezone=UTC";
+    private static final String URL = "jdbc:mariadb://localhost:3306/gp3_proyectofinal_cinemacentro.sql?useSSL=false&serverTimezone=UTC";
     private static final String USER = "root";
     private static final String PASS = ""; // cambiar si corresponde
 
@@ -23,7 +23,7 @@ public class Conexion {
     public static Connection getConexion() {
         if (conexion == null) {
             try {
-                Class.forName("com.mariadb.cj.jdbc.Driver");
+                Class.forName("org.mariadb.jdbc.Driver");
                 conexion = DriverManager.getConnection(URL, USER, PASS);
                 JOptionPane.showMessageDialog(null, "Se conecto a la base de datos");
             } catch (ClassNotFoundException e) {
