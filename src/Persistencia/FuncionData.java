@@ -17,7 +17,7 @@ public class FuncionData {
     //CONECTAR
     private Connection conexion=null;
     
-    public FuncionData(){
+    public FuncionData(Connection con){
         conexion =  Conexion.getConexion();
     }
     
@@ -75,5 +75,67 @@ public class FuncionData {
             }
         return f;
     }
-   
+    
+    //LISTAR
+    public void actualizarFuncion(Funcion f) {
+    String sql = "UPDATE funcion SET idPelicula=?, idSala=?, idioma=?, es3D=?, subtitulada=?, horaInicio=?, horaFin=?, precio=? WHERE idFuncion=?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, f.getIdPelicula());
+            ps.setInt(2, f.getIdSala());
+            ps.setString(3, f.getIdioma());
+            ps.setBoolean(4, f.isEs3D());
+            ps.setBoolean(5, f.isSubtitulada());
+            ps.setTimestamp(6, new Timestamp(f.getHoraInicio().getTime()));
+            ps.setTimestamp(7, new Timestamp(f.getHoraFin().getTime()));
+            ps.setDouble(8, f.getPrecio());
+            ps.setInt(9, f.getIdFuncion());
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar funcion: " + ex.getMessage());
+        }
+    }
+
+
+    public void borrarFuncion(int id) {
+        String sql = "DELETE FROM funcion WHERE idFuncion=?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al borrar funcion: " + ex.getMessage());
+        }
+    }
+
+
+    public ArrayList<Funcion> listarFunciones() {
+        ArrayList<Funcion> lista = new ArrayList<>();
+        String sql = "SELECT * FROM funcion";
+        
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Funcion f = new Funcion();
+                f.setIdFuncion(rs.getInt("idFuncion"));
+                f.setIdPelicula(rs.getInt("idPelicula"));
+                f.setIdSala(rs.getInt("idSala"));
+                f.setIdioma(rs.getString("idioma"));
+                f.setEs3D(rs.getBoolean("es3D"));
+                f.setSubtitulada(rs.getBoolean("subtitulada"));
+                f.setHoraInicio(rs.getTimestamp("horaInicio"));
+                f.setHoraFin(rs.getTimestamp("horaFin"));
+                f.setPrecio(rs.getDouble("precio"));
+                lista.add(f);
+            }   
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al listar funciones: " + ex.getMessage());
+        }
+        return lista;
+    }
 }

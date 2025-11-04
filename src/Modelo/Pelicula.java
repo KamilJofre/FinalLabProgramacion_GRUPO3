@@ -22,6 +22,36 @@ public class Pelicula {
     private boolean enCartelera;
     private ArrayList<Funcion> funcion;
 
+    public Pelicula(ArrayList<String> actores, ArrayList<Funcion> funcion) {
+        this.actores = new ArrayList<>();
+        this.funcion = new ArrayList<>();
+    }
+    
+    public Pelicula(String titulo, String director, ArrayList<String> actores, 
+            String origen, String genero, Date estreno, boolean enCartelera, ArrayList<Funcion> funcion) {
+        this.titulo = titulo;
+        this.director = director;
+        this.actores = actores;
+        this.origen = origen;
+        this.genero = genero;
+        this.estreno = estreno;
+        this.enCartelera = enCartelera;
+        this.funcion = new ArrayList<>();
+    }
+    
+    public Pelicula(int idPelicula, String titulo, String director, ArrayList<String> actores, 
+            String origen, String genero, Date estreno, boolean enCartelera, ArrayList<Funcion> funcion) {
+        this.idPelicula = idPelicula;
+        this.titulo = titulo;
+        this.director = director;
+        this.actores = actores;
+        this.origen = origen;
+        this.genero = genero;
+        this.estreno = estreno;
+        this.enCartelera = enCartelera;
+        this.funcion = new ArrayList<>();
+    }
+
     public int getIdPelicula() {
         return idPelicula;
     }
@@ -92,6 +122,10 @@ public class Pelicula {
 
     public void setFuncion(ArrayList<Funcion> funcion) {
         this.funcion = funcion;
+    }
+
+    public Object getHoraInicio() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

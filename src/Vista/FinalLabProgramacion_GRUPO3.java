@@ -7,6 +7,9 @@ package Vista;
 import Persistencia.AsientoData;
 import Persistencia.*;
 import Modelo.*;
+import java.sql.*;
+import java.util.Date;
+
 
 /**
  *
@@ -18,34 +21,39 @@ public class FinalLabProgramacion_GRUPO3 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        AsientoData ad = new AsientoData();
-        
-        // 1️⃣ Crear asiento e insertar
-        Asiento asiento = new Asiento(1, "A1", "A", 5, true);
-        ad.insertar(asiento);
-        System.out.println("Insertado: " + asiento);
+         // Obtener conexión
+        Conexion conexionDB = new Conexion();
+        Connection con = Conexion.getConexion();
 
-        // 2️⃣ Buscar asiento insertado
-        Asiento buscado = ad.buscarAsiento(asiento.getIdAsiento());
-        System.out.println("Buscado: " + buscado);
+        FuncionData funcionData = new FuncionData(con);
 
-        // 3️⃣ Actualizar asiento
-        asiento.setNumero(7);
-        ad.actualizarAsiento(asiento);
-        System.out.println("Actualizado: " + ad.buscarAsiento(asiento.getIdAsiento()));
-        
-        // 4️⃣ Listar todos
-        System.out.println("\nListado:");
-        for (Asiento a : ad.listarAsientos()) {
-            System.out.println(a);
+        // Crear un objeto Funcion
+        Funcion f = new Funcion();
+        f.setIdPelicula(1);
+        f.setIdSala(2);
+        f.setIdioma("Español");
+        f.setEs3D(false);
+        f.setSubtitulada(false);
+        f.setHoraInicio(new Date());
+        f.setHoraFin(new Date(System.currentTimeMillis() + 7200000)); // +2hs
+        f.setPrecio(1200);
+
+        // Guardar en la BD
+        funcionData.guardarFuncion(f);
+        System.out.println("Funcion guardada con ID: " + f.getIdFuncion());
+
+        // Buscar la función recién creada
+        Funcion buscada = funcionData.buscarFuncion(f.getIdFuncion());
+
+        if(buscada != null){
+            System.out.println("Función encontrada:");
+            System.out.println("ID Película: " + buscada.getIdPelicula());
+            System.out.println("ID Sala: " + buscada.getIdSala());
+            System.out.println("Idioma: " + buscada.getIdioma());
+            System.out.println("Precio: $" + buscada.getPrecio());
+        } else {
+            System.out.println("No se encontró la función");
         }
-
-        // 5️⃣ Baja lógica
-        ad.darDeBaja(asiento.getIdAsiento());
-        System.out.println("\nBaja lógica aplicada.");
-
-        // 6️⃣ Mostrar después de baja
-        System.out.println(ad.buscarAsiento(asiento.getIdAsiento()));
     }
     
 }

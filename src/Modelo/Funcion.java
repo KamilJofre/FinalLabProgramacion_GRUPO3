@@ -24,9 +24,13 @@ public class Funcion {
     private ArrayList<Asiento> listaDeLugaresDisponibles;
     private double precio;
 
-    public Funcion(){}
+    public Funcion() {
+        this.listaDeLugaresDisponibles = new ArrayList<>();
+    }
 
-    public Funcion(int idFuncion, int idPelicula, int idSala, String idioma, boolean es3D, boolean subtitulada, Date horaInicio, Date horaFin, ArrayList<Asiento> listaDeLugaresDisponibles, double precio) {
+
+    public Funcion(int idFuncion, int idPelicula, int idSala, String idioma, boolean es3D,
+               boolean subtitulada, Date horaInicio, Date horaFin, double precio) {
         this.idFuncion = idFuncion;
         this.idPelicula = idPelicula;
         this.idSala = idSala;
@@ -35,11 +39,13 @@ public class Funcion {
         this.subtitulada = subtitulada;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
-        this.listaDeLugaresDisponibles = listaDeLugaresDisponibles;
         this.precio = precio;
+        this.listaDeLugaresDisponibles = new ArrayList<>();
     }
+
     
-    public Funcion(int idPelicula, int idSala, String idioma, boolean es3D, boolean subtitulada, Date horaInicio, Date horaFin, ArrayList<Asiento> listaDeLugaresDisponibles, double precio) {
+    public Funcion(int idPelicula, int idSala, String idioma, boolean es3D,
+               boolean subtitulada, Date horaInicio, Date horaFin, double precio) {
         this.idPelicula = idPelicula;
         this.idSala = idSala;
         this.idioma = idioma;
@@ -47,9 +53,10 @@ public class Funcion {
         this.subtitulada = subtitulada;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
-        this.listaDeLugaresDisponibles = listaDeLugaresDisponibles;
         this.precio = precio;
+        this.listaDeLugaresDisponibles = new ArrayList<>();
     }
+
     
     public int getIdFuncion() {
         return idFuncion;
