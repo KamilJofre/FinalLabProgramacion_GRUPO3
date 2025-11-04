@@ -53,6 +53,26 @@ public class FuncionData {
         Funcion f=null;
         String sql ="SELECT * FROM funcion WHERE idFuncion=?";
         
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                f = new Funcion();
+                f.setIdFuncion(id);
+                f.setIdPelicula(rs.getInt("idPelicula"));
+                f.setIdSala(rs.getInt("idSala"));
+                f.setIdioma(rs.getString("idioma"));
+                f.setEs3D(rs.getBoolean("es3D"));
+                f.setSubtitulada(rs.getBoolean("subtitulada"));
+                f.setHoraInicio(rs.getTimestamp("horaInicio"));
+                f.setHoraFin(rs.getTimestamp("horaFin"));
+                f.setPrecio(rs.getDouble("precio"));
+                }   
+            ps.close();
+            } catch (SQLException ex) {
+                System.out.println("Error al buscar funcion: " + ex.getMessage());
+            }
         return f;
     }
    

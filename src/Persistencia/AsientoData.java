@@ -56,7 +56,7 @@ public class AsientoData {
             ResultSet rs= ps.executeQuery();
             if (rs.next()){ 
                 a = new Asiento(
-                        rs.getInt("idAsiento"),
+                        rs.getInt(id),
                         rs.getInt("idFuncion"),
                         rs.getString("codLugar"),
                         rs.getString("fila"),
