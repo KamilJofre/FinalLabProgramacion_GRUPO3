@@ -33,7 +33,7 @@ public class FinalLabProgramacion_GRUPO3 {
         asiento.setNumero(7);
         ad.actualizarAsiento(asiento);
         System.out.println("Actualizado: " + ad.buscarAsiento(asiento.getIdAsiento()));
-
+        
         // 4️⃣ Listar todos
         System.out.println("\nListado:");
         for (Asiento a : ad.listarAsientos()) {

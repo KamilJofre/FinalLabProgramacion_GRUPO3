@@ -13,8 +13,8 @@ import java.util.*;
  * @author kamil
  */
 public class AsientoData {
-    //CONECTAR
     
+    //CONECTAR
     private Connection conexion=null;
     
     public AsientoData(){
@@ -23,7 +23,7 @@ public class AsientoData {
     
     //INSERTAR
     public void insertar(Asiento a){
-        String sql = "INSERT INTO asiento (idFuncion, codLugar, fila, numero, estado) VALUES (?, ?, ?, ?, )";
+        String sql = "INSERT INTO asiento (idFuncion, codLugar, fila, numero, estado) VALUES (?, ?, ?, ?,? )";
         try{ 
             PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, a.getIdFuncion());
@@ -44,8 +44,8 @@ public class AsientoData {
         } 
     }
     
-    //BUSCAR X ID
-   public Asiento buscarAsiento(int id) {
+    //BUSCAR POR ID
+    public Asiento buscarAsiento(int id) {
         Asiento a = null;
         String sql ="SELECT * FROM asiento WHERE idAsiento=?";
         

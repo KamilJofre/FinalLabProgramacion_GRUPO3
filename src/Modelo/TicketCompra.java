@@ -13,9 +13,60 @@ import java.util.Date;
  */
 public class TicketCompra {
     private int idTicketCompra;
-    private Comprador idComprador;
-    private Asiento idAsiento;
+    private int idComprador;
+    private int idAsiento;
     private Date fechaCompra;
     private Date fechaFuncion;
     private double monto;
+
+    public int getIdTicketCompra() {
+        return idTicketCompra;
+    }
+
+    public void setIdTicketCompra(int idTicketCompra) {
+        this.idTicketCompra = idTicketCompra;
+    }
+
+    public int getIdComprador() {
+        return idComprador;
+    }
+
+    public void setIdComprador(int idComprador) {
+        this.idComprador = idComprador;
+    }
+
+    public int getIdAsiento() {
+        return idAsiento;
+    }
+
+    public void setIdAsiento(int idAsiento) {
+        this.idAsiento = idAsiento;
+    }
+
+    public Date getFechaCompra() {
+        return fechaCompra;
+    }
+
+    public void setFechaCompra(Date fechaCompra) {
+        this.fechaCompra = fechaCompra;
+    }
+
+    public Date getFechaFuncion() {
+        return fechaFuncion;
+    }
+
+    public void setFechaFuncion(Date fechaFuncion) {
+        this.fechaFuncion = fechaFuncion;
+    }
+
+    public double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(double monto) {
+        this.monto = monto;
+    }
+
+    
+    
 }
