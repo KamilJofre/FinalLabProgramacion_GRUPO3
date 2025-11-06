@@ -72,7 +72,7 @@ public class PeliculaData {
                 String actores = rs.getString("actores");
                 List<String> listaActores = Arrays.asList(actores.split(","));
                 p.setActores(new ArrayList<>(listaActores));
-
+ 
                 p.setOrigen(rs.getString("origen"));
                 p.setGenero(rs.getString("genero"));
                 p.setEstreno(rs.getDate("estreno"));
