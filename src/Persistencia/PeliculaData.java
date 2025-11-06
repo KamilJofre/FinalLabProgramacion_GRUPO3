@@ -7,10 +7,7 @@ package Persistencia;
 import java.sql.Connection;
 import Modelo.*;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import java.util.*;
 
 /**
  *
@@ -26,7 +23,7 @@ public class PeliculaData {
     
     //INSERTAR
     public void guardarPelicula(Pelicula p){
-        String sql ="INSERT INTO pelicula (titulo,  director,  actores,  origen,  genero,  estreno,   enCartelera) VALUES (?,?,?,?,?,?,?)";
+        String sql ="INSERT INTO pelicula (titulo,  director,  actores,  origen,  genero,  estreno,   enCartelera) VALUES (?,?,?,?,?,?,?,?)";
         try{
             PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, p.getTitulo());
@@ -39,6 +36,8 @@ public class PeliculaData {
 
             ps.setBoolean(7, p.isEnCartelera());
            
+            //Funciones->texto
+            ps.setString(8, p.getIdFuncion());
             ps.executeUpdate();
             
             ResultSet rs = ps.getGeneratedKeys();
@@ -54,16 +53,14 @@ public class PeliculaData {
     //BUSCAR
     public Pelicula buscarPelicula(int id){
         Pelicula p=null;
-        String SQL="SELECT * FROM pelicula WHERE idPelicula=?";
+        String sql="SELECT * FROM pelicula WHERE idPelicula=?";
         
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, id);
-
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
-                p = new Pelicula(){
+                p = new Pelicula();
                 p.setIdPelicula(rs.getInt("idPelicula"));
                 p.setTitulo(rs.getString("titulo"));
                 p.setDirector(rs.getString("director"));
@@ -77,13 +74,16 @@ public class PeliculaData {
                 p.setGenero(rs.getString("genero"));
                 p.setEstreno(rs.getDate("estreno"));
                 p.setEnCartelera(rs.getBoolean("enCartelera"));
-            }
-
+                
+                // Convierte texto a ArrayList<String>
+                String funcion = rs.getString("funcion");
+                List<String> listaFunciones = Arrays.asList(funcion.split(","));
+                p.setFuncion(new ArrayList<>(listaFunciones));
+                }
             ps.close();
-        } catch (SQLException e) {
-            System.out.println("❌ Error al buscar película: " + e.getMessage());
-        }
-
+            } catch (SQLException ex) {
+            System.out.println("❌ Error al buscar película: " + ex.getMessage());
+            }
         return p;
     }
 }

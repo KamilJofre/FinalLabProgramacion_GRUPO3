@@ -4,14 +4,11 @@
  */
 package Persistencia;
 
-import Modelo.Asiento;
+import Modelo.*;
 import java.sql.*;
 import java.util.*;
 
-/**
- *
- * @author kamil
- */
+
 public class AsientoData {
     
     //CONECTAR

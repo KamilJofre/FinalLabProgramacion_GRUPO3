@@ -4,7 +4,7 @@
  */
 package Modelo;
 
-import Modelo.Asiento;
+import Modelo.*;
 import java.util.Date;
 
 /**
@@ -13,8 +13,8 @@ import java.util.Date;
  */
 public class TicketCompra {
     private int idTicketCompra;
-    private int idComprador;
-    private int idAsiento;
+    private Comprador idComprador;
+    private Asiento idAsiento;
     private Date fechaCompra;
     private Date fechaFuncion;
     private double monto;
@@ -27,19 +27,19 @@ public class TicketCompra {
         this.idTicketCompra = idTicketCompra;
     }
 
-    public int getIdComprador() {
+    public Comprador getIdComprador() {
         return idComprador;
     }
 
-    public void setIdComprador(int idComprador) {
+    public void setIdComprador(Comprador idComprador) {
         this.idComprador = idComprador;
     }
 
-    public int getIdAsiento() {
+    public Asiento getIdAsiento() {
         return idAsiento;
     }
 
-    public void setIdAsiento(int idAsiento) {
+    public void setIdAsiento(Asiento idAsiento) {
         this.idAsiento = idAsiento;
     }
 

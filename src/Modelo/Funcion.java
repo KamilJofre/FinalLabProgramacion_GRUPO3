@@ -14,8 +14,8 @@ import java.util.Date;
  */
 public class Funcion {
     private int idFuncion;
-    private int idPelicula;
-    private int idSala;
+    private Pelicula idPelicula;
+    private Sala idSala;
     private String idioma;
     private boolean es3D; 
     private boolean subtitulada;
@@ -29,7 +29,7 @@ public class Funcion {
     }
 
 
-    public Funcion(int idFuncion, int idPelicula, int idSala, String idioma, boolean es3D,
+    public Funcion(int idFuncion, Pelicula idPelicula, Sala idSala, String idioma, boolean es3D,
                boolean subtitulada, Date horaInicio, Date horaFin, double precio) {
         this.idFuncion = idFuncion;
         this.idPelicula = idPelicula;
@@ -44,7 +44,7 @@ public class Funcion {
     }
 
     
-    public Funcion(int idPelicula, int idSala, String idioma, boolean es3D,
+    public Funcion(Pelicula idPelicula, Sala idSala, String idioma, boolean es3D,
                boolean subtitulada, Date horaInicio, Date horaFin, double precio) {
         this.idPelicula = idPelicula;
         this.idSala = idSala;
@@ -66,19 +66,19 @@ public class Funcion {
         this.idFuncion = idFuncion;
     }
 
-    public int getIdPelicula() {
+    public Pelicula getIdPelicula() {
         return idPelicula;
     }
 
-    public void setIdPelicula(int idPelicula) {
+    public void setIdPelicula(Pelicula idPelicula) {
         this.idPelicula = idPelicula;
     }
 
-    public int getIdSala() {
+    public Sala getIdSala() {
         return idSala;
     }
 
-    public void setIdSala(int idSala) {
+    public void setIdSala(Sala idSala) {
         this.idSala = idSala;
     }
 

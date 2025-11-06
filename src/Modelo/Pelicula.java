@@ -6,6 +6,7 @@ package Modelo;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.sql.*;
 
 /**
  *
@@ -123,10 +124,4 @@ public class Pelicula {
     public void setFuncion(ArrayList<Funcion> funcion) {
         this.funcion = funcion;
     }
-
-    public Object getHoraInicio() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
-    
 }
