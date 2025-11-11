@@ -14,48 +14,47 @@ import java.util.Date;
  */
 public class Funcion {
     private int idFuncion;
-    private Pelicula pelicula;
-    private Sala sala;
+    private Pelicula idPelicula;
+    private Sala idSala;
     private String idioma;
     private boolean es3D; 
     private boolean subtitulada;
     private Date horaInicio;
     private Date horaFin;
-    private RelacionAsientoFuncion relacionAsientoFuncion;
+    private ArrayList<Asiento> listaDeLugaresDisponibles;
     private double precio;
 
     public Funcion() {
+        this.listaDeLugaresDisponibles = new ArrayList<>();
     }
 
 
-    public Funcion(int idFuncion, Pelicula pelicula, Sala sala, String idioma, boolean es3D,
-               boolean subtitulada, Date horaInicio, Date horaFin, 
-               RelacionAsientoFuncion relacionAsientoFuncion, double precio) {
+    public Funcion(int idFuncion, Pelicula idPelicula, Sala idSala, String idioma, boolean es3D,
+               boolean subtitulada, Date horaInicio, Date horaFin, double precio) {
         this.idFuncion = idFuncion;
-        this.pelicula = pelicula;
-        this.sala = sala;
+        this.idPelicula = idPelicula;
+        this.idSala = idSala;
         this.idioma = idioma;
         this.es3D = es3D;
         this.subtitulada = subtitulada;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
-        this.relacionAsientoFuncion = relacionAsientoFuncion;
         this.precio = precio;
+        this.listaDeLugaresDisponibles = new ArrayList<>();
     }
 
     
-    public Funcion(Pelicula pelicula, Sala sala, String idioma, boolean es3D,
-               boolean subtitulada, Date horaInicio, Date horaFin,
-               RelacionAsientoFuncion relacionAsientoFuncion, double precio) {
-        this.pelicula = pelicula;
-        this.sala = sala;
+    public Funcion(Pelicula idPelicula, Sala idSala, String idioma, boolean es3D,
+               boolean subtitulada, Date horaInicio, Date horaFin, double precio) {
+        this.idPelicula = idPelicula;
+        this.idSala = idSala;
         this.idioma = idioma;
         this.es3D = es3D;
         this.subtitulada = subtitulada;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
-        this.relacionAsientoFuncion = relacionAsientoFuncion;
         this.precio = precio;
+        this.listaDeLugaresDisponibles = new ArrayList<>();
     }
 
     
@@ -67,20 +66,20 @@ public class Funcion {
         this.idFuncion = idFuncion;
     }
 
-    public Pelicula getPelicula() {
-        return pelicula;
+    public Pelicula getIdPelicula() {
+        return idPelicula;
     }
 
-    public void setPelicula(Pelicula pelicula) {
-        this.pelicula = pelicula;
+    public void setIdPelicula(Pelicula idPelicula) {
+        this.idPelicula = idPelicula;
     }
 
-    public Sala getSala() {
-        return sala;
+    public Sala getIdSala() {
+        return idSala;
     }
 
-    public void setSala(Sala sala) {
-        this.sala = sala;
+    public void setIdSala(Sala idSala) {
+        this.idSala = idSala;
     }
 
     public String getIdioma() {
@@ -123,12 +122,12 @@ public class Funcion {
         this.horaFin = horaFin;
     }
 
-    public RelacionAsientoFuncion getRelacionAsientoFuncion() {
-        return relacionAsientoFuncion;
+    public ArrayList<Asiento> getListaDeLugaresDisponibles() {
+        return listaDeLugaresDisponibles;
     }
 
-    public void setRelacionAsientoFuncion(RelacionAsientoFuncion relacionAsientoFuncion) {
-        this.relacionAsientoFuncion = relacionAsientoFuncion;
+    public void setListaDeLugaresDisponibles(ArrayList<Asiento> listaDeLugaresDisponibles) {
+        this.listaDeLugaresDisponibles = listaDeLugaresDisponibles;
     }
 
     public double getPrecio() {

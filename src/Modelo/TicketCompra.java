@@ -13,33 +13,11 @@ import java.util.Date;
  */
 public class TicketCompra {
     private int idTicketCompra;
-    private Comprador comprador;
-    private Asiento asiento;
+    private Comprador idComprador;
+    private Asiento idAsiento;
     private Date fechaCompra;
     private Date fechaFuncion;
     private double monto;
-
-    public TicketCompra() {
-    }
-
-    public TicketCompra(int idTicketCompra, Comprador comprador, Asiento asiento, Date fechaCompra, Date fechaFuncion, double monto) {
-        this.idTicketCompra = idTicketCompra;
-        this.comprador = comprador;
-        this.asiento = asiento;
-        this.fechaCompra = fechaCompra;
-        this.fechaFuncion = fechaFuncion;
-        this.monto = monto;
-    }
-
-    public TicketCompra(Comprador comprador, Asiento asiento, Date fechaCompra, Date fechaFuncion, double monto) {
-        this.comprador = comprador;
-        this.asiento = asiento;
-        this.fechaCompra = fechaCompra;
-        this.fechaFuncion = fechaFuncion;
-        this.monto = monto;
-    }
-    
-    
 
     public int getIdTicketCompra() {
         return idTicketCompra;
@@ -49,20 +27,20 @@ public class TicketCompra {
         this.idTicketCompra = idTicketCompra;
     }
 
-    public Comprador getComprador() {
-        return comprador;
+    public Comprador getIdComprador() {
+        return idComprador;
     }
 
-    public void setIdComprador(Comprador comprador) {
-        this.comprador = comprador;
+    public void setIdComprador(Comprador idComprador) {
+        this.idComprador = idComprador;
     }
 
-    public Asiento getAsiento() {
-        return asiento;
+    public Asiento getIdAsiento() {
+        return idAsiento;
     }
 
-    public void setAsiento(Asiento asiento) {
-        this.asiento = asiento;
+    public void setIdAsiento(Asiento idAsiento) {
+        this.idAsiento = idAsiento;
     }
 
     public Date getFechaCompra() {

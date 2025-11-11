@@ -16,37 +16,41 @@ public class Pelicula {
     private int idPelicula;
     private String titulo;
     private String director;
+    private ArrayList<String> actores;
     private String origen;
     private String genero;
     private Date estreno;
     private boolean enCartelera;
-    private RelacionFuncionPelicula relacionFuncionPelicula;
+    private ArrayList<Funcion> funcion;
 
-    public Pelicula() {
+    public Pelicula(ArrayList<String> actores, ArrayList<Funcion> funcion) {
+        this.actores = new ArrayList<>();
+        this.funcion = new ArrayList<>();
     }
     
-    public Pelicula(String titulo, String director, 
-            String origen, String genero, Date estreno, boolean enCartelera, RelacionFuncionPelicula relacionFuncionPelicula) {
+    public Pelicula(String titulo, String director, ArrayList<String> actores, 
+            String origen, String genero, Date estreno, boolean enCartelera, ArrayList<Funcion> funcion) {
         this.titulo = titulo;
         this.director = director;
+        this.actores = actores;
         this.origen = origen;
         this.genero = genero;
         this.estreno = estreno;
         this.enCartelera = enCartelera;
-        this.relacionFuncionPelicula = relacionFuncionPelicula;
+        this.funcion = new ArrayList<>();
     }
     
-    public Pelicula(int idPelicula, String titulo, String director, 
-            String origen, String genero, Date estreno, boolean enCartelera, RelacionFuncionPelicula relacionFuncionPelicula) {
+    public Pelicula(int idPelicula, String titulo, String director, ArrayList<String> actores, 
+            String origen, String genero, Date estreno, boolean enCartelera, ArrayList<Funcion> funcion) {
         this.idPelicula = idPelicula;
         this.titulo = titulo;
         this.director = director;
-
+        this.actores = actores;
         this.origen = origen;
         this.genero = genero;
         this.estreno = estreno;
         this.enCartelera = enCartelera;
-        this.relacionFuncionPelicula = relacionFuncionPelicula;
+        this.funcion = new ArrayList<>();
     }
 
     public int getIdPelicula() {
@@ -71,6 +75,14 @@ public class Pelicula {
 
     public void setDirector(String director) {
         this.director = director;
+    }
+
+    public ArrayList<String> getActores() {
+        return actores;
+    }
+
+    public void setActores(ArrayList<String> actores) {
+        this.actores = actores;
     }
 
     public String getOrigen() {
@@ -105,11 +117,11 @@ public class Pelicula {
         this.enCartelera = enCartelera;
     }
 
-    public RelacionFuncionPelicula getRelacionFuncionPelicula() {
-        return relacionFuncionPelicula;
+    public ArrayList<Funcion> getFuncion() {
+        return funcion;
     }
 
-    public void setRelacionFuncionPelicula(RelacionFuncionPelicula relacionFuncionPelicula) {
-        this.relacionFuncionPelicula = relacionFuncionPelicula;
+    public void setFuncion(ArrayList<Funcion> funcion) {
+        this.funcion = funcion;
     }
 }
