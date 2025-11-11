@@ -22,7 +22,7 @@ public class SalaData {
     //conectar
     private Connection conexion=null;
     
-    public SalaData(){
+    public SalaData(Conexion conexion1){
         conexion =  Conexion.getConexion();
     }
     
