@@ -29,8 +29,10 @@ public class FinalLabProgramacion_GRUPO3 {
 
         // Crear un objeto Funcion
         Funcion f = new Funcion();
-        f.setIdPelicula(1);
-        f.setIdSala(2);
+        Pelicula pelicula= new Pelicula();
+        f.setPelicula(pelicula);
+        Sala sala= new Sala();
+        f.setSala(sala);
         f.setIdioma("Español");
         f.setEs3D(false);
         f.setSubtitulada(false);
@@ -47,8 +49,8 @@ public class FinalLabProgramacion_GRUPO3 {
 
         if(buscada != null){
             System.out.println("Función encontrada:");
-            System.out.println("ID Película: " + buscada.getIdPelicula());
-            System.out.println("ID Sala: " + buscada.getIdSala());
+            System.out.println("ID Película: " + buscada.getPelicula());
+            System.out.println("ID Sala: " + buscada.getSala());
             System.out.println("Idioma: " + buscada.getIdioma());
             System.out.println("Precio: $" + buscada.getPrecio());
         } else {
