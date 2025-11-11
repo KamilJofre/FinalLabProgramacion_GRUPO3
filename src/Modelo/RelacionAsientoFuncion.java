@@ -1,19 +1,36 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Modelo;
 
 import java.util.*;
+
+import Modelo.Asiento;
+import Modelo.Funcion;
+import java.util.ArrayList;
 
 /**
  *
  * @author kamil
  */
-public class relacionAsientoFuncion {
+public class RelacionAsientoFuncion {
     private int idRelacionAsientoFuncion;
     private Funcion funcion;
     private ArrayList<Asiento> asiento;  
+
+    public RelacionAsientoFuncion() {
+    }
+
+    public RelacionAsientoFuncion(int idRelacionAsientoFuncion, Funcion funcion, ArrayList<Asiento> asiento) {
+        this.idRelacionAsientoFuncion = idRelacionAsientoFuncion;
+        this.funcion = funcion;
+        this.asiento = asiento;
+    }
+
+    public RelacionAsientoFuncion(Funcion funcion, ArrayList<Asiento> asiento) {
+        this.funcion = funcion;
+        this.asiento = asiento;
+    }
+    
+    
 
     public int getIdRelacionAsientoFuncion() {
         return idRelacionAsientoFuncion;

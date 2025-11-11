@@ -65,7 +65,7 @@ public class FuncionData {
                     Sala s = new Sala();
                     s.setNroSala(rs.getInt("setNroSala"));
                     
-                    relacionAsientoFuncion r = new relacionAsientoFuncion();
+                    RelacionAsientoFuncion r = new RelacionAsientoFuncion();
                     r.setIdRelacionAsientoFuncion(rs.getInt("idRelacionAsientoFuncion"));
                     
                     f = new Funcion(
@@ -78,7 +78,7 @@ public class FuncionData {
                         rs.getDate("horaInicio"),
                         rs.getDate("horaFin"),
                         r,
-                        rs.getBoolean("precio")
+                        rs.getDouble("precio")
                     );
                 }
                 ps.close();
@@ -100,13 +100,27 @@ public class FuncionData {
             while (rs.next()) {
                 Funcion f = new Funcion();
                 f.setIdFuncion(rs.getInt("idFuncion"));
-                f.setIdPelicula(rs.getInt("idPelicula"));
-                f.setIdSala(rs.getInt("idSala"));
+                
+                // Película
+                    Pelicula p = new Pelicula();
+                    p.setIdPelicula(rs.getInt("idPelicula"));
+                    f.setPelicula(p);
+
+                    // Sala
+                    Sala s = new Sala();
+                    s.setNroSala(rs.getInt("idSala"));
+                    f.setSala(s);
+                
                 f.setIdioma(rs.getString("idioma"));
                 f.setEs3D(rs.getBoolean("es3D"));
                 f.setSubtitulada(rs.getBoolean("subtitulada"));
                 f.setHoraInicio(rs.getTimestamp("horaInicio"));
                 f.setHoraFin(rs.getTimestamp("horaFin"));
+                
+                RelacionAsientoFuncion raf = new RelacionAsientoFuncion();
+                    raf.setIdRelacionAsientoFuncion(rs.getInt("idRelacionAsientoFuncion"));
+                    f.setRelacionAsientoFuncion(raf);
+                    
                 f.setPrecio(rs.getDouble("precio"));
                 lista.add(f);
             }   
@@ -120,18 +134,19 @@ public class FuncionData {
     
     //ACTUALIZAR
      public void actualizarFuncion(Funcion f) {
-    String sql = "UPDATE funcion SET idPelicula=?, idSala=?, idioma=?, es3D=?, subtitulada=?, horaInicio=?, horaFin=?, precio=? WHERE idFuncion=?";
+    String sql = "UPDATE funcion SET idPelicula=?, idSala=?, idioma=?, es3D=?, subtitulada=?, horaInicio=?, horaFin=?, precio=?, relacionAsientoFuncion=? WHERE idFuncion=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, f.getIdPelicula());
-            ps.setInt(2, f.getIdSala());
+            ps.setInt(1, f.getPelicula().getIdPelicula());
+            ps.setInt(2, f.getSala().getNroSala());
             ps.setString(3, f.getIdioma());
             ps.setBoolean(4, f.isEs3D());
             ps.setBoolean(5, f.isSubtitulada());
             ps.setTimestamp(6, new Timestamp(f.getHoraInicio().getTime()));
             ps.setTimestamp(7, new Timestamp(f.getHoraFin().getTime()));
             ps.setDouble(8, f.getPrecio());
-            ps.setInt(9, f.getIdFuncion());
+            ps.setInt(9 , f.getRelacionAsientoFuncion().getIdRelacionAsientoFuncion());
+            ps.setInt(10, f.getIdFuncion());
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {

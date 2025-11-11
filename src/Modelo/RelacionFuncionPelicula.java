@@ -10,23 +10,23 @@ import java.util.*;
  *
  * @author kamil
  */
-public class relacionFuncionPelicula {
+public class RelacionFuncionPelicula {
     private int idRelacionFuncionPelicula;
     private Pelicula pelicula;
     private ArrayList<Funcion> funcion;
 
-    public relacionFuncionPelicula(ArrayList<Funcion> funcion) {
+    public RelacionFuncionPelicula(ArrayList<Funcion> funcion) {
         this.funcion = funcion;
     }
     
     
 
-    public relacionFuncionPelicula(int idRelacionFuncionPelicula, Pelicula pelicula) {
+    public RelacionFuncionPelicula(int idRelacionFuncionPelicula, Pelicula pelicula) {
         this.idRelacionFuncionPelicula = idRelacionFuncionPelicula;
         this.pelicula = pelicula;
     }
 
-    public relacionFuncionPelicula(Pelicula pelicula, ArrayList<Funcion> funcion) {
+    public RelacionFuncionPelicula(Pelicula pelicula, ArrayList<Funcion> funcion) {
         this.pelicula = pelicula;
         this.funcion = funcion;
     }

@@ -21,7 +21,7 @@ public class Funcion {
     private boolean subtitulada;
     private Date horaInicio;
     private Date horaFin;
-    private relacionAsientoFuncion relacionAsientoFuncion;
+    private RelacionAsientoFuncion relacionAsientoFuncion;
     private double precio;
 
     public Funcion() {
@@ -29,8 +29,8 @@ public class Funcion {
 
 
     public Funcion(int idFuncion, Pelicula pelicula, Sala sala, String idioma, boolean es3D,
-               boolean subtitulada, Date horaInicio, Date horaFin, double precio, 
-               relacionAsientoFuncion relacionAsientoFuncion) {
+               boolean subtitulada, Date horaInicio, Date horaFin, 
+               RelacionAsientoFuncion relacionAsientoFuncion, double precio) {
         this.idFuncion = idFuncion;
         this.pelicula = pelicula;
         this.sala = sala;
@@ -39,14 +39,14 @@ public class Funcion {
         this.subtitulada = subtitulada;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
-        this.precio = precio;
         this.relacionAsientoFuncion = relacionAsientoFuncion;
+        this.precio = precio;
     }
 
     
     public Funcion(Pelicula pelicula, Sala sala, String idioma, boolean es3D,
-               boolean subtitulada, Date horaInicio, Date horaFin, double precio, 
-               relacionAsientoFuncion relacionAsientoFuncion) {
+               boolean subtitulada, Date horaInicio, Date horaFin,
+               RelacionAsientoFuncion relacionAsientoFuncion, double precio) {
         this.pelicula = pelicula;
         this.sala = sala;
         this.idioma = idioma;
@@ -54,8 +54,8 @@ public class Funcion {
         this.subtitulada = subtitulada;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
-        this.precio = precio;
         this.relacionAsientoFuncion = relacionAsientoFuncion;
+        this.precio = precio;
     }
 
     
@@ -123,11 +123,11 @@ public class Funcion {
         this.horaFin = horaFin;
     }
 
-    public relacionAsientoFuncion getRelacionAsientoFuncion() {
+    public RelacionAsientoFuncion getRelacionAsientoFuncion() {
         return relacionAsientoFuncion;
     }
 
-    public void setRelacionAsientoFuncion(relacionAsientoFuncion relacionAsientoFuncion) {
+    public void setRelacionAsientoFuncion(RelacionAsientoFuncion relacionAsientoFuncion) {
         this.relacionAsientoFuncion = relacionAsientoFuncion;
     }
 
