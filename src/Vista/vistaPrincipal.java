@@ -48,11 +48,7 @@ public class vistaPrincipal extends javax.swing.JFrame {
         jComboBox4 = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        pelicula = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,31 +77,21 @@ public class vistaPrincipal extends javax.swing.JFrame {
 
         jLabel9.setText("Lugares Disponibles:");
 
-        jTextField1.setText("00.000.000");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
+        jTextField1.setText("jTextField1");
 
-        jTextField2.setText("...");
+        jTextField2.setText("jTextField2");
 
-        jTextField3.setText("00/00/0000");
+        jTextField3.setText("jTextField3");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "El hombre araña", "Avatar", "Batman", "Toy Story" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "17:00/18:10", "18:15/19:05", "21:00/22:05", "23:11/00:00" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
-            }
-        });
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jPasswordField1.setText("jPasswordField1");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mercado pago", "Pay pal", "Tarjeta", "Banco" }));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -207,33 +193,10 @@ public class vistaPrincipal extends javax.swing.JFrame {
         );
 
         jMenu1.setText("ABMC");
-
-        jMenuItem1.setText("insertar");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
-
-        jMenuItem2.setText("actualizar");
-        jMenu1.add(jMenuItem2);
-
-        jMenuItem3.setText("borrar");
-        jMenu1.add(jMenuItem3);
-
-        jMenuItem4.setText("baja");
-        jMenu1.add(jMenuItem4);
-
         jMenuBar1.add(jMenu1);
 
-        pelicula.setText("Pelicula");
-        pelicula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                peliculaActionPerformed(evt);
-            }
-        });
-        jMenuBar1.add(pelicula);
+        jMenu2.setText("Pelicula");
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -250,24 +213,6 @@ public class vistaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void peliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_peliculaActionPerformed
-        pelicula verventana = new pelicula ();
-        pelicula.add(verventana);
-        verventana.show();
-    }//GEN-LAST:event_peliculaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -320,16 +265,12 @@ public class vistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JMenu pelicula;
     // End of variables declaration//GEN-END:variables
 }

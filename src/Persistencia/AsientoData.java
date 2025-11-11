@@ -14,7 +14,7 @@ public class AsientoData {
     //CONECTAR
     private Connection conexion=null;
     
-    public AsientoData(Conexion conexion1){
+    public AsientoData(){
         conexion =  Conexion.getConexion();
     }
     

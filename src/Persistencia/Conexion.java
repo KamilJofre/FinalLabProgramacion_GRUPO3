@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 public class Conexion {
     private static final String URL = "jdbc:mariadb://localhost:3306/gp3_proyectofinal_cinemacentro.sql?useSSL=false&serverTimezone=UTC";
     private static final String USER = "root";
-    private static final String PASS = ""; 
+    private static final String PASS = ""; // cambiar si corresponde
 
     private static Connection conexion = null;
 

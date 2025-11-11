@@ -23,7 +23,7 @@ public class CompradorData {
     //CONECTAR
     private Connection conexion=null;
     
-    public CompradorData(Conexion conexion1){
+    public CompradorData(){
         conexion =  Conexion.getConexion();
     }
     
