@@ -4,6 +4,9 @@
  */
 package Persistencia;
 
+import Modelo.Comprador;
+import Modelo.Asiento;
+import Modelo.TicketCompra;
 import Modelo.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

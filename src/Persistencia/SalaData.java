@@ -4,6 +4,7 @@
  */
 package Persistencia;
 
+import Modelo.Sala;
 import Modelo.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
