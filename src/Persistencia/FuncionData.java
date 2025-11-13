@@ -6,7 +6,6 @@ package Persistencia;
 
 import Modelo.Funcion;
 import Modelo.Sala;
-import Modelo.RelacionAsientoFuncion;
 import Modelo.Pelicula;
 import Modelo.*;
 import java.sql.*;
@@ -27,7 +26,7 @@ public class FuncionData {
     
     //INSERTAR
     public void guardarFuncion(Funcion f){
-        String sql ="INSERT INTO funcion ( idPelicula,  idSala,  idioma,  es3D,  subtitulada,  horaInicio,  horaFin,relacionAsientoFuncion,  precio) VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql ="INSERT INTO funcion ( idPelicula,  idSala,  idioma,  es3D,  subtitulada,  horaInicio,  horaFin,precio) VALUES (?,?,?,?,?,?,?,?)";
         try{
             PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, f.getPelicula().getIdPelicula());
@@ -37,7 +36,7 @@ public class FuncionData {
             ps.setBoolean(5, f.isSubtitulada());
             ps.setDate(6, new java.sql.Date(f.getHoraInicio().getTime()));
             ps.setDate(7, new java.sql.Date(f.getHoraFin().getTime()));
-            ps.setInt(1, f.getRelacionAsientoFuncion().getIdRelacionAsientoFuncion());
+
             ps.setDouble(8, f.getPrecio());
             
             ps.executeUpdate();
@@ -69,8 +68,6 @@ public class FuncionData {
                     Sala s = new Sala();
                     s.setNroSala(rs.getInt("setNroSala"));
                     
-                    RelacionAsientoFuncion r = new RelacionAsientoFuncion();
-                    r.setIdRelacionAsientoFuncion(rs.getInt("idRelacionAsientoFuncion"));
                     
                     f = new Funcion(
                         rs.getInt("idFuncion"),
@@ -81,7 +78,6 @@ public class FuncionData {
                         rs.getBoolean("subtitulada"),
                         rs.getDate("horaInicio"),
                         rs.getDate("horaFin"),
-                        r,
                         rs.getDouble("precio")
                     );
                 }
@@ -121,9 +117,6 @@ public class FuncionData {
                 f.setHoraInicio(rs.getTimestamp("horaInicio"));
                 f.setHoraFin(rs.getTimestamp("horaFin"));
                 
-                RelacionAsientoFuncion raf = new RelacionAsientoFuncion();
-                    raf.setIdRelacionAsientoFuncion(rs.getInt("idRelacionAsientoFuncion"));
-                    f.setRelacionAsientoFuncion(raf);
                     
                 f.setPrecio(rs.getDouble("precio"));
                 lista.add(f);
@@ -149,8 +142,7 @@ public class FuncionData {
             ps.setTimestamp(6, new Timestamp(f.getHoraInicio().getTime()));
             ps.setTimestamp(7, new Timestamp(f.getHoraFin().getTime()));
             ps.setDouble(8, f.getPrecio());
-            ps.setInt(9 , f.getRelacionAsientoFuncion().getIdRelacionAsientoFuncion());
-            ps.setInt(10, f.getIdFuncion());
+            ps.setInt(9, f.getIdFuncion());
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {

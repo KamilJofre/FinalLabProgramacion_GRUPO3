@@ -24,7 +24,7 @@ public class PeliculaData {
     
     //INSERTAR
     public void guardarPelicula(Pelicula p){
-        String sql ="INSERT INTO pelicula (titulo,  director,  origen,  genero,  estreno,   enCartelera, idRelacionFuncionPelicula) VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql ="INSERT INTO pelicula (titulo,  director,  origen,  genero,  estreno,   enCartelera) VALUES (?,?,?,?,?,?,?,?,?)";
         try{
             PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, p.getTitulo());
@@ -34,10 +34,7 @@ public class PeliculaData {
             ps.setDate(6, new java.sql.Date(p.getEstreno().getTime()));
             ps.setBoolean(7, p.isEnCartelera());
             
-            //aca como en asiento se llama al objeto relacionFuncionPelicula
-            //el unico fin de ese objeto es relacionar una pelicula que aparece en muchas funciones
-            //por lo demas se trata como hice en AsientoData
-            ps.setInt(8, p.getRelacionFuncionPelicula().getIdRelacionFuncionPelicula());
+
             ps.executeUpdate();
             
             ResultSet rs = ps.getGeneratedKeys();
@@ -75,4 +72,5 @@ public class PeliculaData {
             }
         return p;
     }
+
 }
