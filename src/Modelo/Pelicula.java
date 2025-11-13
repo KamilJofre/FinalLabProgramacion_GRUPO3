@@ -20,24 +20,22 @@ public class Pelicula {
     private String genero;
     private Date estreno;
     private boolean enCartelera;
-    private RelacionFuncionPelicula relacionFuncionPelicula;
 
     public Pelicula() {
     }
     
     public Pelicula(String titulo, String director, 
-            String origen, String genero, Date estreno, boolean enCartelera, RelacionFuncionPelicula relacionFuncionPelicula) {
+            String origen, String genero, Date estreno, boolean enCartelera) {
         this.titulo = titulo;
         this.director = director;
         this.origen = origen;
         this.genero = genero;
         this.estreno = estreno;
         this.enCartelera = enCartelera;
-        this.relacionFuncionPelicula = relacionFuncionPelicula;
     }
     
     public Pelicula(int idPelicula, String titulo, String director, 
-            String origen, String genero, Date estreno, boolean enCartelera, RelacionFuncionPelicula relacionFuncionPelicula) {
+            String origen, String genero, Date estreno, boolean enCartelera) {
         this.idPelicula = idPelicula;
         this.titulo = titulo;
         this.director = director;
@@ -46,7 +44,6 @@ public class Pelicula {
         this.genero = genero;
         this.estreno = estreno;
         this.enCartelera = enCartelera;
-        this.relacionFuncionPelicula = relacionFuncionPelicula;
     }
 
     public int getIdPelicula() {
@@ -103,13 +100,5 @@ public class Pelicula {
 
     public void setEnCartelera(boolean enCartelera) {
         this.enCartelera = enCartelera;
-    }
-
-    public RelacionFuncionPelicula getRelacionFuncionPelicula() {
-        return relacionFuncionPelicula;
-    }
-
-    public void setRelacionFuncionPelicula(RelacionFuncionPelicula relacionFuncionPelicula) {
-        this.relacionFuncionPelicula = relacionFuncionPelicula;
     }
 }
