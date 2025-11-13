@@ -22,15 +22,14 @@ public class Funcion {
     private Date horaInicio;
     private Date horaFin;
 
-    private double precio;
+
 
     public Funcion() {
     }
 
 
     public Funcion(int idFuncion, Pelicula pelicula, Sala sala, String idioma, boolean es3D,
-               boolean subtitulada, Date horaInicio, Date horaFin, 
-                double precio) {
+               boolean subtitulada, Date horaInicio, Date horaFin) {
         this.idFuncion = idFuncion;
         this.pelicula = pelicula;
         this.sala = sala;
@@ -39,13 +38,11 @@ public class Funcion {
         this.subtitulada = subtitulada;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
-        this.precio = precio;
     }
 
     
     public Funcion(Pelicula pelicula, Sala sala, String idioma, boolean es3D,
-               boolean subtitulada, Date horaInicio, Date horaFin,
-               double precio) {
+               boolean subtitulada, Date horaInicio, Date horaFin) {
         this.pelicula = pelicula;
         this.sala = sala;
         this.idioma = idioma;
@@ -53,7 +50,7 @@ public class Funcion {
         this.subtitulada = subtitulada;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
-        this.precio = precio;
+
     }
 
     
@@ -120,15 +117,4 @@ public class Funcion {
     public void setHoraFin(Date horaFin) {
         this.horaFin = horaFin;
     }
-
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
-    
-    
 }

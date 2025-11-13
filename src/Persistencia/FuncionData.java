@@ -26,7 +26,7 @@ public class FuncionData {
     
     //INSERTAR
     public void guardarFuncion(Funcion f){
-        String sql ="INSERT INTO funcion ( idPelicula,  idSala,  idioma,  es3D,  subtitulada,  horaInicio,  horaFin,precio) VALUES (?,?,?,?,?,?,?,?)";
+        String sql ="INSERT INTO funcion ( idPelicula,  idSala,  idioma,  es3D,  subtitulada,  horaInicio,  horaFin) VALUES (?,?,?,?,?,?,?)";
         try{
             PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, f.getPelicula().getIdPelicula());
@@ -37,7 +37,6 @@ public class FuncionData {
             ps.setDate(6, new java.sql.Date(f.getHoraInicio().getTime()));
             ps.setDate(7, new java.sql.Date(f.getHoraFin().getTime()));
 
-            ps.setDouble(8, f.getPrecio());
             
             ps.executeUpdate();
             
@@ -77,8 +76,7 @@ public class FuncionData {
                         rs.getBoolean("es3D"),
                         rs.getBoolean("subtitulada"),
                         rs.getDate("horaInicio"),
-                        rs.getDate("horaFin"),
-                        rs.getDouble("precio")
+                        rs.getDate("horaFin")
                     );
                 }
                 ps.close();
@@ -117,8 +115,6 @@ public class FuncionData {
                 f.setHoraInicio(rs.getTimestamp("horaInicio"));
                 f.setHoraFin(rs.getTimestamp("horaFin"));
                 
-                    
-                f.setPrecio(rs.getDouble("precio"));
                 lista.add(f);
             }   
             ps.close();
@@ -131,7 +127,7 @@ public class FuncionData {
     
     //ACTUALIZAR
      public void actualizarFuncion(Funcion f) {
-    String sql = "UPDATE funcion SET idPelicula=?, idSala=?, idioma=?, es3D=?, subtitulada=?, horaInicio=?, horaFin=?, precio=?, relacionAsientoFuncion=? WHERE idFuncion=?";
+    String sql = "UPDATE funcion SET idPelicula=?, idSala=?, idioma=?, es3D=?, subtitulada=?, horaInicio=?, horaFin=?  WHERE idFuncion=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, f.getPelicula().getIdPelicula());
@@ -141,8 +137,7 @@ public class FuncionData {
             ps.setBoolean(5, f.isSubtitulada());
             ps.setTimestamp(6, new Timestamp(f.getHoraInicio().getTime()));
             ps.setTimestamp(7, new Timestamp(f.getHoraFin().getTime()));
-            ps.setDouble(8, f.getPrecio());
-            ps.setInt(9, f.getIdFuncion());
+            ps.setInt(8, f.getIdFuncion());
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {
