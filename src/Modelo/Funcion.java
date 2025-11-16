@@ -5,7 +5,6 @@
 package Modelo;
 
 import Modelo.*;
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -14,46 +13,44 @@ import java.util.Date;
  */
 public class Funcion {
     private int idFuncion;
-    private Pelicula pelicula;
-    private Sala sala;
+    private Pelicula idPelicula;
+    private Sala idSala;
     private String idioma;
     private boolean es3D; 
     private boolean subtitulada;
+    private Date fechaFuncion;
     private Date horaInicio;
     private Date horaFin;
+    
 
 
 
     public Funcion() {
     }
 
-
-    public Funcion(int idFuncion, Pelicula pelicula, Sala sala, String idioma, boolean es3D,
-               boolean subtitulada, Date horaInicio, Date horaFin) {
+    public Funcion(int idFuncion, Pelicula idPelicula, Sala idSala, String idioma, boolean es3D, boolean subtitulada, Date fechaFuncion, Date horaInicio, Date horaFin) {
         this.idFuncion = idFuncion;
-        this.pelicula = pelicula;
-        this.sala = sala;
+        this.idPelicula = idPelicula;
+        this.idSala = idSala;
         this.idioma = idioma;
         this.es3D = es3D;
         this.subtitulada = subtitulada;
+        this.fechaFuncion = fechaFuncion;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
     }
 
-    
-    public Funcion(Pelicula pelicula, Sala sala, String idioma, boolean es3D,
-               boolean subtitulada, Date horaInicio, Date horaFin) {
-        this.pelicula = pelicula;
-        this.sala = sala;
+    public Funcion(Pelicula idPelicula, Sala idSala, String idioma, boolean es3D, boolean subtitulada, Date fechaFuncion, Date horaInicio, Date horaFin) {
+        this.idPelicula = idPelicula;
+        this.idSala = idSala;
         this.idioma = idioma;
         this.es3D = es3D;
         this.subtitulada = subtitulada;
+        this.fechaFuncion = fechaFuncion;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
-
     }
 
-    
     public int getIdFuncion() {
         return idFuncion;
     }
@@ -62,20 +59,20 @@ public class Funcion {
         this.idFuncion = idFuncion;
     }
 
-    public Pelicula getPelicula() {
-        return pelicula;
+    public Pelicula getIdPelicula() {
+        return idPelicula;
     }
 
-    public void setPelicula(Pelicula pelicula) {
-        this.pelicula = pelicula;
+    public void setIdPelicula(Pelicula idPelicula) {
+        this.idPelicula = idPelicula;
     }
 
-    public Sala getSala() {
-        return sala;
+    public Sala getIdSala() {
+        return idSala;
     }
 
-    public void setSala(Sala sala) {
-        this.sala = sala;
+    public void setIdSala(Sala idSala) {
+        this.idSala = idSala;
     }
 
     public String getIdioma() {
@@ -102,6 +99,14 @@ public class Funcion {
         this.subtitulada = subtitulada;
     }
 
+    public Date getFechaFuncion() {
+        return fechaFuncion;
+    }
+
+    public void setFechaFuncion(Date fechaFuncion) {
+        this.fechaFuncion = fechaFuncion;
+    }
+
     public Date getHoraInicio() {
         return horaInicio;
     }
@@ -117,4 +122,6 @@ public class Funcion {
     public void setHoraFin(Date horaFin) {
         this.horaFin = horaFin;
     }
+
+    
 }

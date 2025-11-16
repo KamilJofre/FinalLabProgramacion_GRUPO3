@@ -4,17 +4,11 @@
  */
 package Persistencia;
 
-import Modelo.Comprador;
-import Modelo.Asiento;
-import Modelo.TicketCompra;
 import Modelo.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -31,13 +25,14 @@ public class TicketCompraData {
     
     //INSERTAR
     public void guardarTicket(TicketCompra t){
-        String sql ="INSERT INTO funcion ( comprador,  asiento,  fechaCompra,  fechaFuncion,  monto) VALUES (?,?,?,?,?)";
+        String sql ="INSERT INTO funcion ( idComprador,  asiento,  fechaCompra,  fechaFuncion,  monto) VALUES (?,?,?,?,?)";
         try{
             PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, t.getComprador().getDni());
-            ps.setInt(2, t.getAsiento().getIdAsiento());
-            ps.setTimestamp(3, new Timestamp(t.getFechaCompra().getTime())); 
-            ps.setTimestamp(4, new Timestamp(t.getFechaFuncion().getTime())); 
+            ps.setInt(1, t.getIdComprador().getDni());
+            ps.setInt(2, t.getIdAsiento().getIdAsiento());
+            ps.setInt(3, t.getIdFuncion().getIdFuncion());
+            ps.setTimestamp(4, new Timestamp(t.getFechaCompra().getTime())); 
+            ps.setDouble(5, t.getMonto());
             ps.executeUpdate();
             
             ResultSet rs = ps.getGeneratedKeys();
@@ -51,13 +46,13 @@ public class TicketCompraData {
     }
     
     //BUSCAR POR ID
-    public TicketCompra buscarTicketCompra(int id){
+    public TicketCompra buscarTicketCompra(int idTicketCompra){
         TicketCompra t=null;
         String sql ="SELECT * FROM TicketCompra WHERE idTicketCompra=?";
         
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, idTicketCompra);
             
             ResultSet rs = ps.executeQuery();
                 if (rs.next()) { 
@@ -67,12 +62,15 @@ public class TicketCompraData {
                     Asiento a =  new Asiento();
                     a.setIdAsiento(rs.getInt("idAsiento"));
                     
+                    Funcion f = new Funcion();
+                    f.setIdFuncion(rs.getInt("idFuncion"));
+                    
                     t = new TicketCompra(
                         rs.getInt("idTicketCompra"),
                         c,
                         a,
+                        f,
                         rs.getDate("fechCompra"),
-                        rs.getDate("fechaFuncion"),
                         rs.getDouble("monto")
                     );
                 }
@@ -84,9 +82,9 @@ public class TicketCompraData {
     }
     
     //LISTAR
-    public ArrayList<TicketCompra> listarTicketCompra() {
+    public ArrayList<TicketCompra> listarTicketCompra(int idComprador) {
         ArrayList<TicketCompra> lista = new ArrayList<>();
-        String sql = "SELECT * FROM ticketCompra";
+        String sql = "SELECT * FROM ticketCompra WHERE idComprador=?";
         
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -104,11 +102,14 @@ public class TicketCompraData {
                 // Asiento
                     Asiento a = new Asiento();
                     a.setIdAsiento(rs.getInt("idAsiento"));
-                    t.setAsiento(a);
+                    t.setIdAsiento(a);
                 
+                //Funcion
+                    Funcion f= new Funcion();
+                    f.setIdFuncion(rs.getInt("idFuncion"));
+                    t.setIdFuncion(f);
+                    
                 t.setFechaCompra(rs.getDate("fechaCompra"));
-                t.setFechaFuncion(rs.getDate("fechaFuncion"));
-                
                 t.setMonto(rs.getDouble("monto"));
                 lista.add(t);
             }   
@@ -125,10 +126,10 @@ public class TicketCompraData {
     String sql = "UPDATE ticketCompra SET idTicketCompra=?, comprador=?,  asiento=?,  fechaCompra=?,  fechaFuncion=?,  monto=? WHERE idTicketCompra=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, t.getComprador().getDni());
-            ps.setInt(2, t.getAsiento().getIdAsiento());
-            ps.setTimestamp(3, new Timestamp(t.getFechaCompra().getTime()));
-            ps.setTimestamp(4, new Timestamp(t.getFechaFuncion().getTime()));
+            ps.setInt(1, t.getIdComprador().getDni());
+            ps.setInt(2, t.getIdAsiento().getIdAsiento());
+            ps.setInt(3, t.getIdFuncion().getIdFuncion());
+            ps.setTimestamp(4, new Timestamp(t.getFechaCompra().getTime()));
             ps.setDouble(5, t.getMonto());
             ps.close();
         } catch (SQLException ex) {
@@ -137,11 +138,11 @@ public class TicketCompraData {
     }
     
      //borrar
-    public void borrarFuncion(int id) {
+    public void borrarTicketCompra(int idTicketCompra) {
         String sql = "DELETE FROM ticketCompra WHERE idTicketCompra=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, idTicketCompra);
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {

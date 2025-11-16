@@ -4,8 +4,6 @@
  */
 package Persistencia;
 
-import Modelo.Funcion;
-import Modelo.Asiento;
 import Modelo.*;
 import java.sql.*;
 import java.util.*;
@@ -30,7 +28,7 @@ public class AsientoData {
             //ahi lo que pasa es que es un objetio del tipo Funcion
             //entonces tenes q llamar al objeto mediante getFuncion()
             //y a ese objeto pedirle la id
-            ps.setInt(1, a.getFuncion().getIdFuncion());
+            ps.setInt(1, a.getIdFuncion().getIdFuncion());
             
             ps.setString(2, a.getCodLugar());
             ps.setString(3, a.getFila());
@@ -52,7 +50,7 @@ public class AsientoData {
     }
     
     //BUSCAR POR ID
-    public Asiento buscarAsiento(int id) {
+    public Asiento buscarAsiento(int idAsiento) {
         //Inicializa un objeto a vacio
         Asiento a = null;
         //aclaracion de que y donde para SQL
@@ -61,7 +59,7 @@ public class AsientoData {
         try {
             //metodo para llevar datos a la base
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, idAsiento);
         
             ResultSet rs = ps.executeQuery();
             if (rs.next()) { 
@@ -90,7 +88,7 @@ public class AsientoData {
     }
    
     //LISTAR TODOS
-    public List<Asiento> listarAsientos(){
+    public List<Asiento> listarAsientos(int idFuncion){
         List<Asiento> lista = new ArrayList<>();
         String sql ="SELECT * FROM asiento";
         
@@ -119,14 +117,14 @@ public class AsientoData {
         return lista;
     }
     
-    //ACTUALIZAR
+    //ACTUALIZAR                    //no seria mejor buscar x idAsiento en lugar de un objeto?
     public void actualizarAsiento(Asiento a){
         String sql ="UPDATE asiento SET idFuncion=?, codLugar=?, fila=?, numero=?, estado=? WHERE idAsiento=?";
         
         try{
             PreparedStatement ps = conexion.prepareStatement(sql);
             //devuelta
-            ps.setInt(1, a.getFuncion().getIdFuncion());
+            ps.setInt(1, a.getIdFuncion().getIdFuncion());
             ps.setString(2, a.getCodLugar());
             ps.setString(3, a.getFila());
             ps.setInt(4, a.getNumero());
@@ -140,17 +138,15 @@ public class AsientoData {
     }
     
     // BAJA LOGICA
-    public void darDeBaja(int id) {
+    public void darDeBaja(int idAsiento) {
         String sql = "UPDATE asiento SET estado = 0 WHERE idAsiento = ?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, idAsiento);
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {
             System.out.println("Error al dar de baja asiento: " + ex.getMessage());
         }
     }
-    
-    
 }

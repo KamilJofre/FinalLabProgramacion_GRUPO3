@@ -4,15 +4,9 @@
  */
 package Persistencia;
 
-import Modelo.Sala;
 import Modelo.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.*;
+import java.util.*;
 
 /**
  *
@@ -82,7 +76,7 @@ public class SalaData {
     //LISTAR TODOS
     public List<Sala> listarSalas(){
         List<Sala> lista = new ArrayList<>();
-        String sql ="SELECT * FROM sala";
+        String sql ="SELECT * FROM sala WHERE NroSala=?";
         
         try{
             PreparedStatement ps= conexion.prepareStatement(sql);
@@ -102,6 +96,44 @@ public class SalaData {
             ps.close();
         }   catch(SQLException ex){
             System.out.println("Erros: "+ex.getMessage());
+        }
+        return lista;
+    }
+    
+    public ArrayList<Funcion> listarFuncionesDeSala(int NroSala){
+        ArrayList<Funcion> lista = new ArrayList<>();
+        String sql = "SELECT f.* FROM sala s JOIN funcion f ON s.NroSala = f.NroSala WHERE s.NroSala = ?;";
+        
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, NroSala);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Funcion f = new Funcion();
+                f.setIdFuncion(rs.getInt("idFuncion"));
+                
+                // Película
+                    Pelicula p = new Pelicula();
+                    p.setIdPelicula(rs.getInt("idPelicula"));
+                    f.setIdPelicula(p);
+
+                    // Sala
+                    Sala s = new Sala();
+                    s.setNroSala(rs.getInt("idSala"));
+                    f.setIdSala(s);
+                
+                f.setIdioma(rs.getString("idioma"));
+                f.setEs3D(rs.getBoolean("es3D"));
+                f.setSubtitulada(rs.getBoolean("subtitulada"));
+                f.setHoraInicio(rs.getTimestamp("horaInicio"));
+                f.setHoraFin(rs.getTimestamp("horaFin"));
+                
+                lista.add(f);
+            }   
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al listar funciones: " + ex.getMessage());
         }
         return lista;
     }

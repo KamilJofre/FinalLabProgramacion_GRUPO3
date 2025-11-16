@@ -5,15 +5,8 @@
 package Persistencia;
 
 import Modelo.Comprador;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
+import java.sql.*;
+import java.util.*;
 /**
  *
  * @author kamil
@@ -50,13 +43,13 @@ public class CompradorData {
     }
     
     //BUSCAR X ID
-    public Comprador buscarComprador(int id) {
+    public Comprador buscarComprador(int dni) {
         Comprador c = null;
         String sql ="SELECT * FROM comprador WHERE dni=?";
         
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, dni);
         
             ResultSet rs= ps.executeQuery();
             if (rs.next()){ 
@@ -75,10 +68,10 @@ public class CompradorData {
         return c;
     }
    
-    //LISTAR TODOS
-    public List<Comprador> listarCompradores(){
+    //LISTAR TODOS              buscamos compradores de una funcion
+    public List<Comprador> listarCompradores(int idFuncion){
         List<Comprador> lista = new ArrayList<>();
-        String sql ="SELECT * FROM comprador";
+        String sql ="SELECT DISTINCT c.nombre FROM comprador c JOIN ticketcompra t ON c.dni = t.idComprador JOIN funcion f ON t.idFuncion = f.idFuncion;";
         
         try{
             PreparedStatement ps= conexion.prepareStatement(sql);
@@ -109,7 +102,7 @@ public class CompradorData {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, c.getDni());
             ps.setString(2, c.getNombre());
-            ps.setDate(3, (Date) c.getFechaNac());
+            ps.setTimestamp(3, new Timestamp(c.getFechaNac().getTime()));
             ps.setString(4, c.getPassword());
             ps.setString(5, c.getMedioPago());
             
