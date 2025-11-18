@@ -14,39 +14,44 @@ import java.util.*;
  * @author kamil
  */
 public class PeliculaData {
-    //CONECTAR
-    private Connection conexion=null;
-    
+
+    private Connection conexion;
+
     public PeliculaData(Connection con){
-        conexion =  Conexion.getConexion();
+        this.conexion = con;
     }
-    
-    //INSERTAR
+
+    // =====================
+    //      INSERTAR
+    // =====================
     public void guardarPelicula(Pelicula p){
-        String sql ="INSERT INTO pelicula (titulo,  director,  origen,  genero,  estreno,   enCartelera) VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql ="INSERT INTO pelicula (titulo, director, origen, genero, estreno, enCartelera) "
+                   + "VALUES (?,?,?,?,?,?)";
         try{
             PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            
             ps.setString(1, p.getTitulo());
             ps.setString(2, p.getDirector());
-            ps.setString(4, p.getOrigen());
-            ps.setString(5, p.getGenero());
-            ps.setDate(6, new java.sql.Date(p.getEstreno().getTime()));
-            ps.setBoolean(7, p.isEnCartelera());
-            
+            ps.setString(3, p.getOrigen());
+            ps.setString(4, p.getGenero());
+            ps.setDate(5, new java.sql.Date(p.getEstreno().getTime()));
+            ps.setBoolean(6, p.isEnCartelera());
 
             ps.executeUpdate();
             
             ResultSet rs = ps.getGeneratedKeys();
             if(rs.next()) p.setIdPelicula(rs.getInt(1));
+            System.out.println("Pelicula ingresada correctamente");
             
             ps.close();
-            
         } catch(SQLException ex){
-            System.out.println("Error: "+ex.getMessage());
+            System.out.println("❌ Error al guardar película: "+ex.getMessage());
         }
     }
-    
-    //BUSCAR
+
+    // =====================
+    //      BUSCAR
+    // =====================
     public Pelicula buscarPelicula(int idPelicula){
         Pelicula p=null;
         String sql="SELECT * FROM pelicula WHERE idPelicula=?";
@@ -55,27 +60,32 @@ public class PeliculaData {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, idPelicula);
             ResultSet rs = ps.executeQuery();
+            
             if (rs.next()) {
-                p = new Pelicula();
-                p.setIdPelicula(rs.getInt("idPelicula"));
-                p.setTitulo(rs.getString("titulo"));
-                p.setDirector(rs.getString("director"));
-                p.setOrigen(rs.getString("origen"));
-                p.setGenero(rs.getString("genero"));
-                p.setEstreno(rs.getDate("estreno"));
-                p.setEnCartelera(rs.getBoolean("enCartelera"));
-                }
-            ps.close();
-            } catch (SQLException ex) {
-            System.out.println("❌ Error al buscar película: " + ex.getMessage());
+                p = new Pelicula(
+                    rs.getInt("idPelicula"),
+                    rs.getString("titulo"),
+                    rs.getString("director"),
+                    rs.getString("origen"),
+                    rs.getString("genero"),
+                    rs.getDate("estreno"),
+                    rs.getBoolean("enCartelera")
+                );
             }
+            ps.close();
+            
+        } catch (SQLException ex) {
+            System.out.println("❌ Error al buscar película: " + ex.getMessage());
+        }
         return p;
     }
-    
-    //LISTAR TODOS              
+
+    // =====================
+    //      LISTAR
+    // =====================
     public List<Pelicula> listarPeliculas(){
         List<Pelicula> lista = new ArrayList<>();
-        String sql ="SELECT * FROM pelicula where idPelicula=?";
+        String sql ="SELECT * FROM pelicula";
         
         try{
             PreparedStatement ps= conexion.prepareStatement(sql);
@@ -94,34 +104,41 @@ public class PeliculaData {
                 lista.add(p);
             }
             ps.close();
-        }   catch(SQLException ex){
-            System.out.println("Error: "+ex.getMessage());
+        } catch(SQLException ex){
+            System.out.println("❌ Error al listar películas: "+ex.getMessage());
         }
         return lista;
     }
 
-    
-    //ACTUALIZAR
+    // =====================
+    //    ACTUALIZAR
+    // =====================
     public void actualizarPelicula(Pelicula p) {
-    String sql = "UPDATE pelicula SET titulo=?, director=?, origen=?, genero=?, estreno=?, enCartelera=?  WHERE idPelicula=?";
+        String sql = "UPDATE pelicula SET titulo=?, director=?, origen=?, genero=?, estreno=?, enCartelera=? "
+                   + "WHERE idPelicula=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
-                ps.setInt(1, p.getIdPelicula());
-                ps.setString(2, p.getTitulo());
-                ps.setString(3, p.getDirector());
-                ps.setString(4, p.getOrigen());
-                ps.setString(5, p.getGenero());
-                ps.setTimestamp(6, new Timestamp(p.getEstreno().getTime()));
-                ps.setBoolean(7, p.isEnCartelera());
-                ps.executeUpdate();
-                ps.close();
+
+            ps.setString(1, p.getTitulo());
+            ps.setString(2, p.getDirector());
+            ps.setString(3, p.getOrigen());
+            ps.setString(4, p.getGenero());
+            ps.setDate(5, new java.sql.Date(p.getEstreno().getTime()));
+            ps.setBoolean(6, p.isEnCartelera());
+            ps.setInt(7, p.getIdPelicula());
+
+            ps.executeUpdate();
+            ps.close();
+
         } catch (SQLException ex) {
-            System.out.println("Error al actualizar funcion: " + ex.getMessage());
+            System.out.println("❌ Error al actualizar película: " + ex.getMessage());
         }
     }
-    
-     //borrar
-    public void borrarFuncion(int idPelicula) {
+
+    // =====================
+    //      BORRAR
+    // =====================
+    public void borrarPelicula(int idPelicula) {
         String sql = "DELETE FROM pelicula WHERE idPelicula=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -129,7 +146,7 @@ public class PeliculaData {
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error al borrar funcion: " + ex.getMessage());
+            System.out.println("❌ Error al borrar película: " + ex.getMessage());
         }
     }
 }
