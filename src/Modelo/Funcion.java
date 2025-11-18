@@ -21,7 +21,7 @@ public class Funcion {
     private Date fechaFuncion;
     private Date horaInicio;
     private Date horaFin;
-    private int precio;
+    private double precio;
     
     
 
@@ -30,7 +30,7 @@ public class Funcion {
     public Funcion() {
     }
 
-    public Funcion(int idFuncion, Pelicula idPelicula, Sala idSala, String idioma, boolean es3D, boolean subtitulada, Date fechaFuncion, Date horaInicio, Date horaFin,int precio) {
+    public Funcion(int idFuncion, Pelicula idPelicula, Sala idSala, String idioma, boolean es3D, boolean subtitulada, Date fechaFuncion, Date horaInicio, Date horaFin,double precio) {
         this.idFuncion = idFuncion;
         this.idPelicula = idPelicula;
         this.idSala = idSala;
@@ -43,7 +43,7 @@ public class Funcion {
         this.precio = precio;
     }
 
-    public Funcion(Pelicula idPelicula, Sala idSala, String idioma, boolean es3D, boolean subtitulada, Date fechaFuncion, Date horaInicio, Date horaFin,int precio) {
+    public Funcion(Pelicula idPelicula, Sala idSala, String idioma, boolean es3D, boolean subtitulada, Date fechaFuncion, Date horaInicio, Date horaFin,double precio) {
         this.idPelicula = idPelicula;
         this.idSala = idSala;
         this.idioma = idioma;
@@ -129,11 +129,11 @@ public class Funcion {
         this.horaFin = horaFin;
     }
 
-    public int getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
     

@@ -10,13 +10,15 @@ import java.util.*;
 
 public class FuncionData {
 
-    private Connection conexion = null;
+    private Connection conexion;
 
     public FuncionData(Connection con) {
-        conexion = Conexion.getConexion();
+        this.conexion = con; // ✔ Correcto
     }
 
-    // INSERTAR
+    // =============================
+    //       INSERTAR FUNCIÓN
+    // =============================
     public void guardarFuncion(Funcion f) {
         String sql = "INSERT INTO funcion (NroSala, idPelicula, idioma, es3D, subtitulada, fechaFuncion, horaInicio, horaFin, precio) "
                    + "VALUES (?,?,?,?,?,?,?,?,?)";
@@ -30,23 +32,28 @@ public class FuncionData {
             ps.setBoolean(4, f.isEs3D());
             ps.setBoolean(5, f.isSubtitulada());
             ps.setDate(6, new java.sql.Date(f.getFechaFuncion().getTime()));
-            ps.setDate(7, new java.sql.Date(f.getHoraInicio().getTime()));
-            ps.setDate(8, new java.sql.Date(f.getHoraFin().getTime()));
-            ps.setDouble(9, f.getPrecio());
+            ps.setTimestamp(7, new Timestamp(f.getHoraInicio().getTime())); // ✔ Correcto
+            ps.setTimestamp(8, new Timestamp(f.getHoraFin().getTime()));    // ✔ Correcto
+            ps.setDouble(9, f.getPrecio()); // ✔ NO casteamos
 
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) f.setIdFuncion(rs.getInt(1));
+            if (rs.next()) {
+                f.setIdFuncion(rs.getInt(1));
+            }
 
             ps.close();
+            System.out.println("Función guardada correctamente.");
 
         } catch (SQLException ex) {
-            System.out.println("Error al guardar funcion: " + ex.getMessage());
+            System.out.println("❌ Error al guardar función: " + ex.getMessage());
         }
     }
 
-    // BUSCAR POR ID
+    // =============================
+    //        BUSCAR FUNCIÓN
+    // =============================
     public Funcion buscarFuncion(int idFuncion) {
         Funcion f = null;
         String sql = "SELECT * FROM funcion WHERE idFuncion=?";
@@ -54,7 +61,6 @@ public class FuncionData {
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, idFuncion);
-
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -73,20 +79,24 @@ public class FuncionData {
                     rs.getBoolean("es3D"),
                     rs.getBoolean("subtitulada"),
                     rs.getDate("fechaFuncion"),
-                    rs.getDate("horaInicio"),
-                    rs.getDate("horaFin"), (int) rs.getDouble("precio"));
+                    rs.getTimestamp("horaInicio"), // ✔
+                    rs.getTimestamp("horaFin"),    // ✔
+                    rs.getDouble("precio")         // ✔
+                );
             }
 
             ps.close();
 
         } catch (SQLException ex) {
-            System.out.println("Error al buscar funcion: " + ex.getMessage());
+            System.out.println("❌ Error al buscar función: " + ex.getMessage());
         }
 
         return f;
     }
 
-    // LISTAR TODAS LAS FUNCIONES
+    // =============================
+    //     LISTAR TODAS
+    // =============================
     public ArrayList<Funcion> listarFunciones() {
         ArrayList<Funcion> lista = new ArrayList<>();
         String sql = "SELECT * FROM funcion";
@@ -112,9 +122,9 @@ public class FuncionData {
                 f.setEs3D(rs.getBoolean("es3D"));
                 f.setSubtitulada(rs.getBoolean("subtitulada"));
                 f.setFechaFuncion(rs.getDate("fechaFuncion"));
-                f.setHoraInicio(rs.getDate("horaInicio"));
-                f.setHoraFin(rs.getDate("horaFin"));
-                f.setPrecio((int) rs.getDouble("precio"));
+                f.setHoraInicio(rs.getTimestamp("horaInicio")); // ✔
+                f.setHoraFin(rs.getTimestamp("horaFin"));       // ✔
+                f.setPrecio(rs.getDouble("precio"));            // ✔
 
                 lista.add(f);
             }
@@ -122,51 +132,15 @@ public class FuncionData {
             ps.close();
 
         } catch (SQLException ex) {
-            System.out.println("Error al listar funciones: " + ex.getMessage());
+            System.out.println("❌ Error al listar funciones: " + ex.getMessage());
         }
 
         return lista;
     }
 
-    // LISTAR ASIENTOS POR FUNCIÓN
-    public ArrayList<Asiento> listarAsientos(int idFuncion) {
-        ArrayList<Asiento> lista = new ArrayList<>();
-
-        String sql = "SELECT a.* FROM asiento a WHERE a.idFuncion = ?";
-
-        try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, idFuncion);
-
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-
-                Funcion f = new Funcion();
-                f.setIdFuncion(idFuncion);
-
-                Asiento a = new Asiento(
-                    rs.getInt("idAsiento"),
-                    f,
-                    rs.getString("codLugar"),
-                    rs.getString("fila"),
-                    rs.getInt("numero"),
-                    rs.getBoolean("estado")
-                );
-
-                lista.add(a);
-            }
-
-            ps.close();
-
-        } catch (SQLException ex) {
-            System.out.println("Error al listar asientos: " + ex.getMessage());
-        }
-
-        return lista;
-    }
-
-    // ACTUALIZAR
+    // =============================
+    //        ACTUALIZAR
+    // =============================
     public void actualizarFuncion(Funcion f) {
         String sql = "UPDATE funcion SET NroSala=?, idPelicula=?, idioma=?, es3D=?, subtitulada=?, fechaFuncion=?, horaInicio=?, horaFin=?, precio=? "
                    + "WHERE idFuncion=?";
@@ -180,31 +154,35 @@ public class FuncionData {
             ps.setBoolean(4, f.isEs3D());
             ps.setBoolean(5, f.isSubtitulada());
             ps.setDate(6, new java.sql.Date(f.getFechaFuncion().getTime()));
-            ps.setDate(7, new java.sql.Date(f.getHoraInicio().getTime()));
-            ps.setDate(8, new java.sql.Date(f.getHoraFin().getTime()));
+            ps.setTimestamp(7, new Timestamp(f.getHoraInicio().getTime()));
+            ps.setTimestamp(8, new Timestamp(f.getHoraFin().getTime()));
             ps.setDouble(9, f.getPrecio());
             ps.setInt(10, f.getIdFuncion());
 
             ps.executeUpdate();
             ps.close();
 
+            System.out.println("Función actualizada correctamente.");
+
         } catch (SQLException ex) {
-            System.out.println("Error al actualizar funcion: " + ex.getMessage());
+            System.out.println("❌ Error al actualizar función: " + ex.getMessage());
         }
     }
 
-    // BORRAR
-    public void borrarFuncion(int id) {
+    // =============================
+    //          BORRAR
+    // =============================
+    public void borrarFuncion(int idFuncion) {
         String sql = "DELETE FROM funcion WHERE idFuncion=?";
 
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, idFuncion);
             ps.executeUpdate();
             ps.close();
 
         } catch (SQLException ex) {
-            System.out.println("Error al borrar funcion: " + ex.getMessage());
+            System.out.println("❌ Error al borrar función: " + ex.getMessage());
         }
     }
 }

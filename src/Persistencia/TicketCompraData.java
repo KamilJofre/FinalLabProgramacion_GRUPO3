@@ -7,146 +7,189 @@ package Persistencia;
 import Modelo.*;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
-
-/**
- *
- * @author kamil
- */
 public class TicketCompraData {
-    //CONECTAR
-    private Connection conexion=null;
-    
-    public TicketCompraData(Connection con){
-        conexion =  Conexion.getConexion();
-    }
-    
-    //INSERTAR
-    public void guardarTicket(TicketCompra t){
-        String sql ="INSERT INTO funcion ( idComprador,  asiento,  fechaCompra,  fechaFuncion,  monto) VALUES (?,?,?,?,?)";
-        try{
-            PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, t.getIdComprador().getDni());
-            ps.setInt(2, t.getIdAsiento().getIdAsiento());
-            ps.setInt(3, t.getIdFuncion().getIdFuncion());
-            ps.setTimestamp(4, new Timestamp(t.getFechaCompra().getTime())); 
-            ps.setDouble(5, t.getMonto());
-            ps.executeUpdate();
-            
-            ResultSet rs = ps.getGeneratedKeys();
-            if(rs.next()) t.setIdTicketCompra(rs.getInt(1));
-            
-            ps.close();
-            
-        } catch(SQLException ex){
-            System.out.println("Error: "+ex.getMessage());
-        }
-    }
-    
-    //BUSCAR POR ID
-    public TicketCompra buscarTicketCompra(int idTicketCompra){
-        TicketCompra t=null;
-        String sql ="SELECT * FROM TicketCompra WHERE idTicketCompra=?";
-        
-        try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, idTicketCompra);
-            
-            ResultSet rs = ps.executeQuery();
-                if (rs.next()) { 
-                    Comprador c = new Comprador();
-                    c.setDni(rs.getInt("Dni"));
-                    
-                    Asiento a =  new Asiento();
-                    a.setIdAsiento(rs.getInt("idAsiento"));
-                    
-                    Funcion f = new Funcion();
-                    f.setIdFuncion(rs.getInt("idFuncion"));
-                    
-                    t = new TicketCompra(
-                        rs.getInt("idTicketCompra"),
-                        c,
-                        a,
-                        f,
-                        rs.getDate("fechCompra"),
-                        rs.getDouble("monto")
-                    );
-                }
-                ps.close();
-            } catch (SQLException ex) {
-                System.out.println("Error al buscar TikcetCompra: " + ex.getMessage());
-            }
-        return t;
-    }
-    
-    //LISTAR
-    public ArrayList<TicketCompra> listarTicketCompra(int idComprador) {
-        ArrayList<TicketCompra> lista = new ArrayList<>();
-        String sql = "SELECT * FROM ticketCompra WHERE idComprador=?";
-        
-        try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            
-            while (rs.next()) {
-                TicketCompra t = new TicketCompra();
-                t.setIdTicketCompra(rs.getInt("idTicketCompra"));
-                
-                // Comprador
-                    Comprador c = new Comprador();
-                    c.setDni(rs.getInt("dni"));
-                    t.setIdComprador(c);
 
-                // Asiento
-                    Asiento a = new Asiento();
-                    a.setIdAsiento(rs.getInt("idAsiento"));
-                    t.setIdAsiento(a);
-                
-                //Funcion
-                    Funcion f= new Funcion();
-                    f.setIdFuncion(rs.getInt("idFuncion"));
-                    t.setIdFuncion(f);
-                    
-                t.setFechaCompra(rs.getDate("fechaCompra"));
-                t.setMonto(rs.getDouble("monto"));
-                lista.add(t);
-            }   
-            ps.close();
-        } catch (SQLException ex) {
-            System.out.println("Error al listar TicketCompra: " + ex.getMessage());
-        }
-        return lista;
+    private Connection conexion;
+
+    public TicketCompraData(Connection con) {
+        this.conexion = con;
     }
-    
-    
-    //ACTUALIZAR
-     public void actualizarTicketCompra(TicketCompra t) {
-    String sql = "UPDATE ticketCompra SET idTicketCompra=?, comprador=?,  asiento=?,  fechaCompra=?,  fechaFuncion=?,  monto=? WHERE idTicketCompra=?";
+
+    // ===============================================
+    //                INSERTAR TICKET
+    // ===============================================
+    public void guardarTicket(TicketCompra t) {
+
+        String sql = "INSERT INTO ticketcompra (idComprador, idAsiento, idFuncion, fechaCompra, monto) "
+                   + "VALUES (?, ?, ?, ?, ?)";
+
         try {
-            PreparedStatement ps = conexion.prepareStatement(sql);
+            PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
             ps.setInt(1, t.getIdComprador().getDni());
             ps.setInt(2, t.getIdAsiento().getIdAsiento());
             ps.setInt(3, t.getIdFuncion().getIdFuncion());
             ps.setTimestamp(4, new Timestamp(t.getFechaCompra().getTime()));
             ps.setDouble(5, t.getMonto());
+
+            ps.executeUpdate();
+
+            // Obtener ID
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                t.setIdTicketCompra(rs.getInt(1));
+            }
+
             ps.close();
+            System.out.println("Ticket guardado con éxito.");
+
         } catch (SQLException ex) {
-            System.out.println("Error al actualizar funcion: " + ex.getMessage());
+            System.out.println("❌ Error al guardar ticket: " + ex.getMessage());
         }
     }
-    
-     //borrar
-    public void borrarTicketCompra(int idTicketCompra) {
-        String sql = "DELETE FROM ticketCompra WHERE idTicketCompra=?";
+
+    // ===============================================
+    //                BUSCAR TICKET POR ID
+    // ===============================================
+    public TicketCompra buscarTicketCompra(int idTicketCompra) {
+
+        TicketCompra t = null;
+        String sql = "SELECT * FROM ticketcompra WHERE idTicketCompra=?";
+
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, idTicketCompra);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                // Objetos relacionados
+                Comprador c = new Comprador();
+                c.setDni(rs.getInt("idComprador"));
+
+                Asiento a = new Asiento();
+                a.setIdAsiento(rs.getInt("idAsiento"));
+
+                Funcion f = new Funcion();
+                f.setIdFuncion(rs.getInt("idFuncion"));
+
+                t = new TicketCompra(
+                        rs.getInt("idTicketCompra"),
+                        c,
+                        a,
+                        f,
+                        rs.getTimestamp("fechaCompra"),
+                        rs.getDouble("monto")
+                );
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            System.out.println("❌ Error al buscar ticket: " + ex.getMessage());
+        }
+
+        return t;
+    }
+
+    // ===============================================
+    //                LISTAR TICKETS POR COMPRADOR
+    // ===============================================
+    public ArrayList<TicketCompra> listarTicketCompra(int idComprador) {
+
+        ArrayList<TicketCompra> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM ticketcompra WHERE idComprador=?";
+
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idComprador); // ✔ faltaba esto en tu versión
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                TicketCompra t = new TicketCompra();
+                t.setIdTicketCompra(rs.getInt("idTicketCompra"));
+
+                // Comprador
+                Comprador c = new Comprador();
+                c.setDni(rs.getInt("idComprador"));
+                t.setIdComprador(c);
+
+                // Asiento
+                Asiento a = new Asiento();
+                a.setIdAsiento(rs.getInt("idAsiento"));
+                t.setIdAsiento(a);
+
+                // Función
+                Funcion f = new Funcion();
+                f.setIdFuncion(rs.getInt("idFuncion"));
+                t.setIdFuncion(f);
+
+                t.setFechaCompra(rs.getTimestamp("fechaCompra"));
+                t.setMonto(rs.getDouble("monto"));
+
+                lista.add(t);
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            System.out.println("❌ Error al listar tickets: " + ex.getMessage());
+        }
+
+        return lista;
+    }
+
+    // ===============================================
+    //                  ACTUALIZAR TICKET
+    // ===============================================
+    public void actualizarTicketCompra(TicketCompra t) {
+
+        String sql = "UPDATE ticketcompra SET idComprador=?, idAsiento=?, idFuncion=?, fechaCompra=?, monto=? "
+                   + "WHERE idTicketCompra=?";
+
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+
+            ps.setInt(1, t.getIdComprador().getDni());
+            ps.setInt(2, t.getIdAsiento().getIdAsiento());
+            ps.setInt(3, t.getIdFuncion().getIdFuncion());
+            ps.setTimestamp(4, new Timestamp(t.getFechaCompra().getTime()));
+            ps.setDouble(5, t.getMonto());
+            ps.setInt(6, t.getIdTicketCompra());
+
             ps.executeUpdate();
             ps.close();
+
+            System.out.println("Ticket actualizado correctamente.");
+
         } catch (SQLException ex) {
-            System.out.println("Error al borrar ticketCompra: " + ex.getMessage());
+            System.out.println("❌ Error al actualizar ticket: " + ex.getMessage());
+        }
+    }
+
+    // ===============================================
+    //                        BORRAR
+    // ===============================================
+    public void borrarTicketCompra(int idTicketCompra) {
+
+        String sql = "DELETE FROM ticketcompra WHERE idTicketCompra=?";
+
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idTicketCompra);
+
+            ps.executeUpdate();
+            ps.close();
+
+            System.out.println("Ticket eliminado correctamente.");
+
+        } catch (SQLException ex) {
+            System.out.println("❌ Error al borrar ticket: " + ex.getMessage());
         }
     }
 }

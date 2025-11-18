@@ -23,167 +23,153 @@ public class FinalLabProgramacion_GRUPO3 {
     public static void main(String[] args) {
         
       
-//         1) Obtener conexión UNA sola vez
-        Connection con = Conexion.getConexion();
-        
+Connection con = Conexion.getConexion();
 
-//         2) Crear pasando la conexión
-        CompradorData cd = new CompradorData(con);
+// =======================================================================
+//                            COMPRADOR DATA
+// =======================================================================
+CompradorData cd = new CompradorData(con);
 
+// 1) Crear comprador
+Comprador c = new Comprador(123324, "Juan asda", new java.util.Date(), "abc123", "Debito");
 
-//***********PROBANDO COMPRADOR DATA**************
+// 2) Insertar
+cd.insertar(c);
 
-        // 3) Crear comprador
-        Comprador c = new Comprador(123324, "Juan asda", 
-                     new java.util.Date(), "abc123", "Debito");
+// 3) Buscar
+Comprador resultado = cd.buscarComprador(123324);
+System.out.println("Buscado: " + resultado.getNombre());
 
-        // 4) Insertarlo
-        cd.insertar(c);
-//        
-//        
-//        // 5) Buscarlo
-//        Comprador resultado = cd.buscarComprador(12345678);
-//        System.out.println("Buscado: " + resultado.getNombre());
-//
-//        // 6) Actualizarlo
-//        c.setNombre("Juan Carlos Pérez");
-//        cd.actualizarComprador(c);
-//
-//        // 7) Listar todos
-//        for (Comprador x : cd.listarCompradores()) {
-//            System.out.println(x.getNombre());
-//        }
-//
-//        // 8) Eliminarlo
-//        cd.darDeBaja(12345678);
+// 4) Actualizar
+c.setNombre("Juan Carlos Pérez");
+cd.actualizarComprador(c);
 
+// 5) Listar todos
+for (Comprador x : cd.listarCompradores()) {
+    System.out.println("Comprador: " + x.getNombre());
+}
 
-//******************PROBANDO SALADATA************
+// =======================================================================
+//                            SALA DATA
+// =======================================================================
+SalaData salaData = new SalaData(con);
 
-//SalaData salaData = new SalaData(con);
-//
-//        System.out.println("=== PRUEBA DE SalaData ===");
-//
-//        // 1) Crear una sala
-//        Sala nuevaSala = new Sala(true, 120, true); 
-//        salaData.insertar(nuevaSala);
-//        
-//
-//        // 2) Buscar la sala
-//        Sala salaBuscada = salaData.buscarSala(1);
-//        System.out.println("Sala encontrada: " + salaBuscada);
-//        
-//        
-//        // 3) Actualizar sala
-//        salaBuscada.setCapacidad(150);
-//        salaData.actualizarSala(salaBuscada);
-//        System.out.println("Sala actualizada: " + salaBuscada);
-//
-//        // 4) Listar todas las salas
-//        System.out.println("=== Listando salas ===");
-//        for (Sala s : salaData.listarSalas()) {
-//            System.out.println(s);
-//        }
-//
-//        // 5) Borrar sala
-//        salaData.darDeBaja(1);
-//        System.out.println("Sala borrada.");
-//
+System.out.println("\n=== PRUEBA DE SalaData ===");
+
+// 1) Crear una sala
+Sala nuevaSala = new Sala(1, true, 120, true);
+salaData.insertar(nuevaSala);
+
+// 2) Buscar sala
+Sala salaBuscada = salaData.buscarSala(1);
+System.out.println("Sala encontrada: " + salaBuscada.getNroSala());
+
+// 3) Actualizar sala
+salaBuscada.setCapacidad(150);
+salaData.actualizarSala(salaBuscada);
+
+// 4) Listar salas
+for (Sala s : salaData.listarSalas()) {
+    System.out.println("Sala listada: " + s.getNroSala());
+}
 
 
-//***********probando PELICULADATA***********
+// =======================================================================
+//                            PELICULA DATA
+// =======================================================================
+PeliculaData pd = new PeliculaData(con);
 
-//// 1. Crear una película
-//    PeliculaData pd = new PeliculaData(con);
-//    
-//        Pelicula p = new Pelicula(
-//                "Matrix",
-//                "Wachowski",
-//                "USA",
-//                "Sci-Fi",
-//                new Date(),  // HOY
-//                true
-//        );
-//
-//        pd.guardarPelicula(p);
-//        
-        // 2) BUSCAR
-//        Pelicula encontrada = pd.buscarPelicula(p.getIdPelicula());
-//        System.out.println("Película encontrada: " + encontrada.getTitulo());
-//
-//        // 3) ACTUALIZAR
-//        encontrada.setTitulo("Matrix Reloaded");
-//        pd.actualizarPelicula(encontrada);
-//        System.out.println("Película actualizada correctamente.");
-//
-//        // 4) LISTAR TODAS
-//        System.out.println("==== LISTADO DE PELÍCULAS ====");
-//        for (Pelicula peli : pd.listarPeliculas()) {
-//            System.out.println(peli.getIdPelicula() + " - " + peli.getTitulo());
-//        }
-//
-//        // 5) BORRAR
-//        pd.borrarPelicula(encontrada.getIdPelicula());
-//        System.out.println("Película borrada correctamente.");
+// 1) Crear pelicula
+Pelicula p = new Pelicula("Matrix", "Wachowski", "USA", "Sci-Fi", new Date(), true);
+pd.guardarPelicula(p);
 
-//**probando ASIENTO DATA**
-//AsientoData ad = new AsientoData(con);
-//
-////tiene que haber una funcion para que funcione el asiento
-//
-//Funcion f = new Funcion();
-//        f.setIdFuncion(1);   
-//
-//        // 1) INSERTAR ASIENTO
-//        Asiento a = new Asiento(
-//                f,
-//                "A1",
-//                "A",
-//                1,
-//                true
-//        );
-//
-//        ad.insertar(a);
-//        System.out.println("Asiento insertado con ID: " + a.getIdAsiento());
-//        
-//        // 2) BUSCAR ASIENTO
-//        Asiento encontrado = ad.buscarAsiento(a.getIdAsiento());
-//        if (encontrado != null) {
-//            System.out.println("Asiento hallado: " 
-//                + encontrado.getCodLugar() + " - Fila: " + encontrado.getFila());
-//        }
-//
-//        // 3) LISTAR ASIENTOS DE UNA FUNCIÓN
-//        System.out.println("=== ASIENTOS DE LA FUNCIÓN 1 ===");
-//        List<Asiento> lista = ad.listarAsientos(1);
-//        for (Asiento x : lista) {
-//            System.out.println(
-//                x.getIdAsiento() + " | " + x.getCodLugar() + " | Fila: " + x.getFila() + " | Num: " + x.getNumero()
-//            );
-//        }
-//
-//        // 4) ACTUALIZAR ASIENTO
-//        encontrado.setCodLugar("A2");
-//        encontrado.setNumero(2);
-//        encontrado.setEstado(false);
-//        ad.actualizarAsiento(encontrado);
-//        System.out.println("Asiento actualizado.");
-//
-//        // 5) DAR DE BAJA (estado = 0)
-//        ad.darDeBaja(encontrado.getIdAsiento());
-//        System.out.println("Asiento dado de baja.");
-//
+// 2) Buscar
+Pelicula encontrada = pd.buscarPelicula(p.getIdPelicula());
+System.out.println("Película encontrada: " + encontrada.getTitulo());
+
+// 3) Actualizar
+encontrada.setTitulo("Matrix Reloaded");
+pd.actualizarPelicula(encontrada);
+
+// 4) Listar
+for (Pelicula peli : pd.listarPeliculas()) {
+    System.out.println("Película: " + peli.getIdPelicula() + " - " + peli.getTitulo());
+}
 
 
+// =======================================================================
+//                            FUNCION DATA
+// =======================================================================
+FuncionData fd = new FuncionData(con);
+
+Funcion f = new Funcion(
+        p,                  // película
+        nuevaSala,          // sala
+        "Español",          // idioma
+        false,              // 3D
+        true,               // subtitulada
+        new Date(),         // fecha función
+        new Date(),         // inicio
+        new Date(),         // fin
+        1500                // precio
+);
+
+fd.guardarFuncion(f);
+System.out.println("Función guardada ID: " + f.getIdFuncion());
+
+Funcion funEncontrada = fd.buscarFuncion(f.getIdFuncion());
+System.out.println("Idioma función encontrada: " + funEncontrada.getIdioma());
 
 
+// =======================================================================
+//                            ASIENTO DATA
+// =======================================================================
+AsientoData ad = new AsientoData(con);
+
+// 1) Insertar asiento
+Asiento a = new Asiento(f, "A1", "A", 1, true);
+ad.insertar(a);
+
+System.out.println("Asiento insertado con ID: " + a.getIdAsiento());
+
+// 2) Buscar asiento
+Asiento encontradoAsiento = ad.buscarAsiento(a.getIdAsiento());
+System.out.println("Asiento hallado: " + encontradoAsiento.getCodLugar());
+
+// 3) Listar asientos por función
+for (Asiento x : ad.listarAsientos(f.getIdFuncion())) {
+    System.out.println("Asiento listado: " + x.getCodLugar());
+}
 
 
+// =======================================================================
+//                      TICKET COMPRA DATA (FINAL)
+// =======================================================================
+TicketCompraData tcd = new TicketCompraData(con);
 
+// 1) Crear ticket
+TicketCompra ticket = new TicketCompra(
+        c,          // comprador
+        a,          // asiento
+        f,          // funcion
+        new Date(), // fechaCompra
+        f.getPrecio()
+);
 
-        
-        
-        
+tcd.guardarTicket(ticket);
+
+System.out.println("Ticket guardado ID: " + ticket.getIdTicketCompra());
+
+// 2) Buscar ticket
+TicketCompra tBuscado = tcd.buscarTicketCompra(ticket.getIdTicketCompra());
+System.out.println("Ticket encontrado monto: " + tBuscado.getMonto());
+
+// 3) Listar tickets de comprador
+for (TicketCompra t : tcd.listarTicketCompra(c.getDni())) {
+    System.out.println("Ticket listado ID: " + t.getIdTicketCompra());
+}
+
+System.out.println("\n=== FIN PRUEBAS ===");
         
 
 
