@@ -16,9 +16,7 @@ public class FuncionData {
         this.conexion = con; // ✔ Correcto
     }
 
-    // =============================
-    //       INSERTAR FUNCIÓN
-    // =============================
+    //insertar funcion
     public void guardarFuncion(Funcion f) {
         String sql = "INSERT INTO funcion (NroSala, idPelicula, idioma, es3D, subtitulada, fechaFuncion, horaInicio, horaFin, precio) "
                    + "VALUES (?,?,?,?,?,?,?,?,?)";
@@ -32,9 +30,9 @@ public class FuncionData {
             ps.setBoolean(4, f.isEs3D());
             ps.setBoolean(5, f.isSubtitulada());
             ps.setDate(6, new java.sql.Date(f.getFechaFuncion().getTime()));
-            ps.setTimestamp(7, new Timestamp(f.getHoraInicio().getTime())); // ✔ Correcto
-            ps.setTimestamp(8, new Timestamp(f.getHoraFin().getTime()));    // ✔ Correcto
-            ps.setDouble(9, f.getPrecio()); // ✔ NO casteamos
+            ps.setTimestamp(7, new Timestamp(f.getHoraInicio().getTime())); 
+            ps.setTimestamp(8, new Timestamp(f.getHoraFin().getTime()));   
+            ps.setDouble(9, f.getPrecio()); 
 
             ps.executeUpdate();
 
@@ -47,13 +45,11 @@ public class FuncionData {
             System.out.println("Función guardada correctamente.");
 
         } catch (SQLException ex) {
-            System.out.println("❌ Error al guardar función: " + ex.getMessage());
+            System.out.println("Error al guardar función: " + ex.getMessage());
         }
     }
 
-    // =============================
-    //        BUSCAR FUNCIÓN
-    // =============================
+    //Buscar funcion
     public Funcion buscarFuncion(int idFuncion) {
         Funcion f = null;
         String sql = "SELECT * FROM funcion WHERE idFuncion=?";
@@ -79,24 +75,22 @@ public class FuncionData {
                     rs.getBoolean("es3D"),
                     rs.getBoolean("subtitulada"),
                     rs.getDate("fechaFuncion"),
-                    rs.getTimestamp("horaInicio"), // ✔
-                    rs.getTimestamp("horaFin"),    // ✔
-                    rs.getDouble("precio")         // ✔
+                    rs.getTimestamp("horaInicio"), 
+                    rs.getTimestamp("horaFin"),   
+                    rs.getDouble("precio")        
                 );
             }
 
             ps.close();
 
         } catch (SQLException ex) {
-            System.out.println("❌ Error al buscar función: " + ex.getMessage());
+            System.out.println(" Error al buscar función: " + ex.getMessage());
         }
 
         return f;
     }
 
-    // =============================
-    //     LISTAR TODAS
-    // =============================
+    //Listar
     public ArrayList<Funcion> listarFunciones() {
         ArrayList<Funcion> lista = new ArrayList<>();
         String sql = "SELECT * FROM funcion";
@@ -122,9 +116,9 @@ public class FuncionData {
                 f.setEs3D(rs.getBoolean("es3D"));
                 f.setSubtitulada(rs.getBoolean("subtitulada"));
                 f.setFechaFuncion(rs.getDate("fechaFuncion"));
-                f.setHoraInicio(rs.getTimestamp("horaInicio")); // ✔
-                f.setHoraFin(rs.getTimestamp("horaFin"));       // ✔
-                f.setPrecio(rs.getDouble("precio"));            // ✔
+                f.setHoraInicio(rs.getTimestamp("horaInicio")); 
+                f.setHoraFin(rs.getTimestamp("horaFin"));       
+                f.setPrecio(rs.getDouble("precio"));            
 
                 lista.add(f);
             }
@@ -132,15 +126,13 @@ public class FuncionData {
             ps.close();
 
         } catch (SQLException ex) {
-            System.out.println("❌ Error al listar funciones: " + ex.getMessage());
+            System.out.println("Error al listar funciones: " + ex.getMessage());
         }
 
         return lista;
     }
 
-    // =============================
-    //        ACTUALIZAR
-    // =============================
+    //Actualizar
     public void actualizarFuncion(Funcion f) {
         String sql = "UPDATE funcion SET NroSala=?, idPelicula=?, idioma=?, es3D=?, subtitulada=?, fechaFuncion=?, horaInicio=?, horaFin=?, precio=? "
                    + "WHERE idFuncion=?";
@@ -165,13 +157,11 @@ public class FuncionData {
             System.out.println("Función actualizada correctamente.");
 
         } catch (SQLException ex) {
-            System.out.println("❌ Error al actualizar función: " + ex.getMessage());
+            System.out.println("Error al actualizar función: " + ex.getMessage());
         }
     }
 
-    // =============================
-    //          BORRAR
-    // =============================
+    //Borrar
     public void borrarFuncion(int idFuncion) {
         String sql = "DELETE FROM funcion WHERE idFuncion=?";
 
@@ -182,7 +172,7 @@ public class FuncionData {
             ps.close();
 
         } catch (SQLException ex) {
-            System.out.println("❌ Error al borrar función: " + ex.getMessage());
+            System.out.println("Error al borrar función: " + ex.getMessage());
         }
     }
 }

@@ -77,9 +77,14 @@ public class vistaPrincipal extends javax.swing.JFrame {
 
         jLabel9.setText("Lugares Disponibles:");
 
-        jTextField1.setText("jTextField1");
+        jTextField1.setText("Ej: 00111333");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
-        jTextField2.setText("jTextField2");
+        jTextField2.setText("Nombre aqui...");
 
         jTextField3.setText("jTextField3");
 
@@ -213,6 +218,10 @@ public class vistaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments

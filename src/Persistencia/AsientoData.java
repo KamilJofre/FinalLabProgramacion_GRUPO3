@@ -16,9 +16,7 @@ public class AsientoData {
         this.conexion = conexion;
     }
 
-    // ======================
-    //     INSERTAR
-    // ======================
+    //Insertar
     public void insertar(Asiento a){
         String sql = "INSERT INTO asiento (idFuncion, codLugar, fila, numero, estado) "
                    + "VALUES (?, ?, ?, ?, ?)";
@@ -40,13 +38,11 @@ public class AsientoData {
 
             ps.close();
         } catch(SQLException ex){
-            System.out.println("❌ Error al guardar asiento: " + ex.getMessage());
+            System.out.println("Error al guardar asiento: " + ex.getMessage());
         }
     }
 
-    // ======================
-    //      BUSCAR
-    // ======================
+    //Buscar
     public Asiento buscarAsiento(int idAsiento){
         Asiento a = null;
         String sql ="SELECT * FROM asiento WHERE idAsiento=?";
@@ -73,14 +69,12 @@ public class AsientoData {
 
             ps.close();
         } catch(SQLException ex){
-            System.out.println("❌ Error al buscar asiento: " + ex.getMessage());
+            System.out.println("Error al buscar asiento: " + ex.getMessage());
         }
         return a;
     }
 
-    // ======================
-    //      LISTAR
-    // ======================
+    //Listar
     public List<Asiento> listarAsientos(int idFuncion){
         List<Asiento> lista = new ArrayList<>();
         String sql ="SELECT * FROM asiento WHERE idFuncion=?";
@@ -109,15 +103,13 @@ public class AsientoData {
 
             ps.close();
         } catch(SQLException ex){
-            System.out.println("❌ Error al listar asientos: " + ex.getMessage());
+            System.out.println("Error al listar asientos: " + ex.getMessage());
         }
 
         return lista;
     }
 
-    // ======================
-    //     ACTUALIZAR
-    // ======================
+    //Actualizar
     public void actualizarAsiento(Asiento a){
         String sql ="UPDATE asiento SET idFuncion=?, codLugar=?, fila=?, numero=?, estado=? "
                    + "WHERE idAsiento=?";
@@ -136,13 +128,11 @@ public class AsientoData {
             ps.close();
 
         } catch(SQLException ex){
-            System.out.println("❌ Error al actualizar asiento: " + ex.getMessage());
+            System.out.println("Error al actualizar asiento: " + ex.getMessage());
         }
     }
 
-    // ======================
-    //     BAJA LÓGICA
-    // ======================
+    //Borrar
     public void darDeBaja(int idAsiento){
         String sql = "UPDATE asiento SET estado = 0 WHERE idAsiento = ?";
 
@@ -153,7 +143,7 @@ public class AsientoData {
             ps.close();
 
         } catch(SQLException ex){
-            System.out.println("❌ Error al dar de baja asiento: " + ex.getMessage());
+            System.out.println("Error al dar de baja asiento: " + ex.getMessage());
         }
     }
 }

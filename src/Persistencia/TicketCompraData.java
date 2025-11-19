@@ -16,9 +16,7 @@ public class TicketCompraData {
         this.conexion = con;
     }
 
-    // ===============================================
-    //                INSERTAR TICKET
-    // ===============================================
+    //Insertar Ticket
     public void guardarTicket(TicketCompra t) {
 
         String sql = "INSERT INTO ticketcompra (idComprador, idAsiento, idFuncion, fechaCompra, monto) "
@@ -45,13 +43,11 @@ public class TicketCompraData {
             System.out.println("Ticket guardado con éxito.");
 
         } catch (SQLException ex) {
-            System.out.println("❌ Error al guardar ticket: " + ex.getMessage());
+            System.out.println("Error al guardar ticket: " + ex.getMessage());
         }
     }
 
-    // ===============================================
-    //                BUSCAR TICKET POR ID
-    // ===============================================
+    //Buscar ticket
     public TicketCompra buscarTicketCompra(int idTicketCompra) {
 
         TicketCompra t = null;
@@ -88,15 +84,13 @@ public class TicketCompraData {
             ps.close();
 
         } catch (SQLException ex) {
-            System.out.println("❌ Error al buscar ticket: " + ex.getMessage());
+            System.out.println("Error al buscar ticket: " + ex.getMessage());
         }
 
         return t;
     }
 
-    // ===============================================
-    //                LISTAR TICKETS POR COMPRADOR
-    // ===============================================
+    //Listrar Tickets
     public ArrayList<TicketCompra> listarTicketCompra(int idComprador) {
 
         ArrayList<TicketCompra> lista = new ArrayList<>();
@@ -138,15 +132,13 @@ public class TicketCompraData {
             ps.close();
 
         } catch (SQLException ex) {
-            System.out.println("❌ Error al listar tickets: " + ex.getMessage());
+            System.out.println("Error al listar tickets: " + ex.getMessage());
         }
 
         return lista;
     }
 
-    // ===============================================
-    //                  ACTUALIZAR TICKET
-    // ===============================================
+    //Actualizar tickets
     public void actualizarTicketCompra(TicketCompra t) {
 
         String sql = "UPDATE ticketcompra SET idComprador=?, idAsiento=?, idFuncion=?, fechaCompra=?, monto=? "
@@ -168,13 +160,11 @@ public class TicketCompraData {
             System.out.println("Ticket actualizado correctamente.");
 
         } catch (SQLException ex) {
-            System.out.println("❌ Error al actualizar ticket: " + ex.getMessage());
+            System.out.println("Error al actualizar ticket: " + ex.getMessage());
         }
     }
 
-    // ===============================================
-    //                        BORRAR
-    // ===============================================
+    //Borrar ticket
     public void borrarTicketCompra(int idTicketCompra) {
 
         String sql = "DELETE FROM ticketcompra WHERE idTicketCompra=?";
@@ -189,7 +179,7 @@ public class TicketCompraData {
             System.out.println("Ticket eliminado correctamente.");
 
         } catch (SQLException ex) {
-            System.out.println("❌ Error al borrar ticket: " + ex.getMessage());
+            System.out.println("Error al borrar ticket: " + ex.getMessage());
         }
     }
 }

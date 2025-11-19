@@ -168,9 +168,10 @@ public class CompradorData {
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, dni);
+            ps.executeUpdate();
+            ps.close();
             
-            
-          int filas = ps.executeUpdate();
+        int filas = ps.executeUpdate();
             if (filas > 0) {
                 System.out.println("Comprador eliminado (dni=" + dni + ").");
             } else {
@@ -179,5 +180,5 @@ public class CompradorData {
         } catch (SQLException ex) {
             System.out.println("Error al eliminar comprador: " + ex.getMessage());
         }
-        }
+    }
 }
