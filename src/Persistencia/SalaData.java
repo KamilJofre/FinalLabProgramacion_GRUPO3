@@ -68,7 +68,7 @@ public class SalaData {
             }
             ps.close();
         } catch (SQLException ex) {
-            System.out.println("Error: al buscar sala" + ex.getMessage());
+            System.out.println("Error al buscar sala" + ex.getMessage());
         }
         return s;
     }
@@ -133,7 +133,6 @@ public class SalaData {
                 f.setEs3D(rs.getBoolean("es3D"));
                 f.setSubtitulada(rs.getBoolean("subtitulada"));
                 f.setHoraInicio(rs.getTimestamp("horaInicio"));
-                f.setHoraFin(rs.getTimestamp("horaFin"));
                 f.setPrecio(rs.getInt("precio"));
                 
                 lista.add(f);

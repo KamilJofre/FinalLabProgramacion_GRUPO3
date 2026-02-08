@@ -1,21 +1,22 @@
+package Main;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package Vista;
+
 
 import Persistencia.*;
 import Modelo.*;
 import java.sql.*;
 import java.util.Date;
-import java.util.List;
 
 
 /**
  *
  * @author kamil
  */
-public class FinalLabProgramacion_GRUPO3 {
+public class FinalFinalisimo {
 
     /**
      * @param args the command line arguments
@@ -36,10 +37,11 @@ public class FinalLabProgramacion_GRUPO3 {
 
         // 2) Insertar
         cd.insertar(c);
+        cd.insertar(k);
         
 
         // 3) Buscar
-        Comprador resultado = cd.buscarComprador(123324);
+        Comprador resultado = cd.buscarComprador(45562799);
         System.out.println("Buscado: " + resultado.getNombre());
 
         // 4) Actualizar
@@ -51,7 +53,6 @@ public class FinalLabProgramacion_GRUPO3 {
             System.out.println("Comprador: " + x.getNombre());
         }
 
-        
         
         
         //SalatData
@@ -84,51 +85,50 @@ public class FinalLabProgramacion_GRUPO3 {
         PeliculaData pd = new PeliculaData(con);
 
         // 1) Crear pelicula
-        Pelicula p = new Pelicula("Matrix", "Wachowski", "USA", "Sci-Fi", new Date(), true);
-        pd.guardarPelicula(p);
+        Pelicula KFP = new Pelicula("Kunf Fu Panda -4", "Jack Black", "USA", "Animacion", true);
+        pd.guardarPelicula(KFP);
 
         // 2) Buscar
-        Pelicula encontrada = pd.buscarPelicula(p.getIdPelicula());
+        Pelicula encontrada = pd.buscarPelicula(KFP.getIdPelicula());
         System.out.println("Película encontrada: " + encontrada.getTitulo());
 
         // 3) Actualizar
-        encontrada.setTitulo("Matrix Reloaded");
+        encontrada.setTitulo("Kunf Fu Panda -4");
         pd.actualizarPelicula(encontrada);
 
         // 4) Listar
         for (Pelicula peli : pd.listarPeliculas()) {
             System.out.println("Película: " + peli.getIdPelicula() + " - " + peli.getTitulo());
         }
-
-
+//
+//
         //FuncionData
         FuncionData fd = new FuncionData(con);
 
-        Funcion f = new Funcion(
-                p,                  
+        Funcion m = new Funcion(
+                KFP,                  
                 nuevaSala,          
                 "Español",          
                 false,              
                 true,               
-                new Date(),         
-                new Date(),         
-                new Date(),         
-                1500                
+                new java.util.Date(2026-01-01),         
+                new Date(),                 
+                6000                
         );
 
-        fd.guardarFuncion(f);
-        System.out.println("Función guardada ID: " + f.getIdFuncion());
+        fd.guardarFuncion(m);
+        System.out.println("Función guardada ID: " + m.getIdFuncion());
 
-        Funcion funEncontrada = fd.buscarFuncion(f.getIdFuncion());
+        Funcion funEncontrada = fd.buscarFuncion(m.getIdFuncion());
         System.out.println("Idioma función encontrada: " + funEncontrada.getIdioma());
 
-
-
+//
+//
         //AsientoData
         AsientoData ad = new AsientoData(con);
 
         // 1) Insertar asiento
-        Asiento a = new Asiento(f, "A1", "A", 1, true);
+        Asiento a = new Asiento(m, "A1", "A", 1, false);
         ad.insertar(a);
 
         System.out.println("Asiento insertado con ID: " + a.getIdAsiento());
@@ -138,23 +138,23 @@ public class FinalLabProgramacion_GRUPO3 {
         System.out.println("Asiento hallado: " + encontradoAsiento.getCodLugar());
 
         // 3) Listar asientos por función
-        for (Asiento x : ad.listarAsientos(f.getIdFuncion())) {
+        for (Asiento x : ad.listarAsientos(m.getIdFuncion())) {
             System.out.println("Asiento listado: " + x.getCodLugar());
         }
-
-
-        
-
+//
+//
+//        
+//
         //TicketCompraDaata (Final)
         TicketCompraData tcd = new TicketCompraData(con);
 
         // 1) Crear ticket
         TicketCompra ticket = new TicketCompra(
-                c,          // comprador
+                k,          // comprador
                 a,          // asiento
-                f,          // funcion
+                m,          // funcion
                 new Date(), // fechaCompra
-                f.getPrecio()
+                m.getPrecio()
         );
 
         tcd.guardarTicket(ticket);
@@ -169,9 +169,9 @@ public class FinalLabProgramacion_GRUPO3 {
         for (TicketCompra t : tcd.listarTicketCompra(c.getDni())) {
             System.out.println("Ticket listado ID: " + t.getIdTicketCompra());
         }
-        
-        
-        
+//        
+//   
+//       
 
         System.out.println("\n Fin Pruebas");
 

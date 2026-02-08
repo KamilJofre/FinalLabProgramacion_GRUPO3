@@ -18,31 +18,30 @@ public class Pelicula {
     private String director;
     private String origen;
     private String genero;
-    private Date estreno;
+
     private boolean enCartelera;
 
     public Pelicula() {
     }
     
     public Pelicula(String titulo, String director, 
-            String origen, String genero, Date estreno, boolean enCartelera) {
+            String origen, String genero, boolean enCartelera) {
         this.titulo = titulo;
         this.director = director;
         this.origen = origen;
         this.genero = genero;
-        this.estreno = estreno;
         this.enCartelera = enCartelera;
     }
-    
+
     public Pelicula(int idPelicula, String titulo, String director, 
-            String origen, String genero, Date estreno, boolean enCartelera) {
+            String origen, String genero, boolean enCartelera) {
         this.idPelicula = idPelicula;
         this.titulo = titulo;
         this.director = director;
 
         this.origen = origen;
         this.genero = genero;
-        this.estreno = estreno;
+
         this.enCartelera = enCartelera;
     }
 
@@ -86,13 +85,6 @@ public class Pelicula {
         this.genero = genero;
     }
 
-    public Date getEstreno() {
-        return estreno;
-    }
-
-    public void setEstreno(Date estreno) {
-        this.estreno = estreno;
-    }
 
     public boolean isEnCartelera() {
         return enCartelera;

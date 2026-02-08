@@ -23,8 +23,8 @@ public class PeliculaData {
 
     //Insertar pelicula
     public void guardarPelicula(Pelicula p){
-        String sql ="INSERT INTO pelicula (titulo, director, origen, genero, estreno, enCartelera) "
-                   + "VALUES (?,?,?,?,?,?)";
+        String sql ="INSERT INTO pelicula (titulo, director, origen, genero, enCartelera) "
+                   + "VALUES (?,?,?,?,?)";
         try{
             PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
@@ -32,8 +32,7 @@ public class PeliculaData {
             ps.setString(2, p.getDirector());
             ps.setString(3, p.getOrigen());
             ps.setString(4, p.getGenero());
-            ps.setDate(5, new java.sql.Date(p.getEstreno().getTime()));
-            ps.setBoolean(6, p.isEnCartelera());
+            ps.setBoolean(5, p.isEnCartelera());
 
             ps.executeUpdate();
             
@@ -64,7 +63,6 @@ public class PeliculaData {
                     rs.getString("director"),
                     rs.getString("origen"),
                     rs.getString("genero"),
-                    rs.getDate("estreno"),
                     rs.getBoolean("enCartelera")
                 );
             }
@@ -92,7 +90,6 @@ public class PeliculaData {
                         rs.getString("director"),
                         rs.getString("origen"),
                         rs.getString("genero"),
-                        rs.getDate("estreno"),
                         rs.getBoolean("enCartelera")
                 );
                 lista.add(p);
@@ -106,7 +103,7 @@ public class PeliculaData {
 
     //Actualizar
     public void actualizarPelicula(Pelicula p) {
-        String sql = "UPDATE pelicula SET titulo=?, director=?, origen=?, genero=?, estreno=?, enCartelera=? "
+        String sql = "UPDATE pelicula SET titulo=?, director=?, origen=?, genero=?, enCartelera=? "
                    + "WHERE idPelicula=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -115,9 +112,8 @@ public class PeliculaData {
             ps.setString(2, p.getDirector());
             ps.setString(3, p.getOrigen());
             ps.setString(4, p.getGenero());
-            ps.setDate(5, new java.sql.Date(p.getEstreno().getTime()));
-            ps.setBoolean(6, p.isEnCartelera());
-            ps.setInt(7, p.getIdPelicula());
+            ps.setBoolean(5, p.isEnCartelera());
+            ps.setInt(6, p.getIdPelicula());
 
             ps.executeUpdate();
             ps.close();

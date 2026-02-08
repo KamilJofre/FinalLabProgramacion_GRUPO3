@@ -20,7 +20,6 @@ public class Funcion {
     private boolean subtitulada;
     private Date fechaFuncion;
     private Date horaInicio;
-    private Date horaFin;
     private double precio;
     
     
@@ -30,7 +29,7 @@ public class Funcion {
     public Funcion() {
     }
 
-    public Funcion(int idFuncion, Pelicula idPelicula, Sala idSala, String idioma, boolean es3D, boolean subtitulada, Date fechaFuncion, Date horaInicio, Date horaFin,double precio) {
+    public Funcion(int idFuncion, Pelicula idPelicula, Sala idSala, String idioma, boolean es3D, boolean subtitulada, Date fechaFuncion, Date horaInicio, double precio) {
         this.idFuncion = idFuncion;
         this.idPelicula = idPelicula;
         this.idSala = idSala;
@@ -39,11 +38,10 @@ public class Funcion {
         this.subtitulada = subtitulada;
         this.fechaFuncion = fechaFuncion;
         this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
         this.precio = precio;
     }
 
-    public Funcion(Pelicula idPelicula, Sala idSala, String idioma, boolean es3D, boolean subtitulada, Date fechaFuncion, Date horaInicio, Date horaFin,double precio) {
+    public Funcion(Pelicula idPelicula, Sala idSala, String idioma, boolean es3D, boolean subtitulada, Date fechaFuncion, Date horaInicio,double precio) {
         this.idPelicula = idPelicula;
         this.idSala = idSala;
         this.idioma = idioma;
@@ -51,7 +49,6 @@ public class Funcion {
         this.subtitulada = subtitulada;
         this.fechaFuncion = fechaFuncion;
         this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
         this.precio = precio;
     }
     
@@ -121,14 +118,6 @@ public class Funcion {
         this.horaInicio = horaInicio;
     }
 
-    public Date getHoraFin() {
-        return horaFin;
-    }
-
-    public void setHoraFin(Date horaFin) {
-        this.horaFin = horaFin;
-    }
-
     public double getPrecio() {
         return precio;
     }
@@ -136,8 +125,4 @@ public class Funcion {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-    
-    
-
-    
 }
