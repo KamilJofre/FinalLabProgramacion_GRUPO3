@@ -16,9 +16,9 @@ import java.util.Date;
  *
  * @author kamil
  */
-public class FinalFinalisimo {
+public class FinalLabProgramacion_GRUPO3 {
 
-    /**
+    /** 
      * @param args the command line arguments
      */
     public static void main(String[] args) {
