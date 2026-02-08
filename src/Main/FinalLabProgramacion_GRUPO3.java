@@ -18,7 +18,7 @@ import java.util.Date;
  */
 public class FinalLabProgramacion_GRUPO3 {
 
-    /** 
+    /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
